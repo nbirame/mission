@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_equipe_action" model="ir.actions.act_window">
+        <field name="name">Equipe Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.equipe</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_equipe_tree" model="ir.ui.view">
+        <field name="name">mission.equipe.tree</field>
+        <field name="model">mission.equipe</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des equipes de mission">
+                <field name="mission_id"/>
+                <field name="employee_id"/>
+                <field name="poste"/>
+                <field name="indemnite"/>
+                <field name="avance"/>
+                <field name="restant"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_equipe_search" model="ir.ui.view">
+        <field name="model">mission.equipe</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="employee_id"/>
+               <field name="poste"/>
+                <field name="type_missionnaire_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_equipe_form" model="ir.ui.view">
+        <field name="name">mission.equipe.form</field>
+        <field name="model">mission.equipe</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une equipe de mission">
+                <sheet>
+                      <group name="group_top" col="3">
+                            <field name="employee_id" />
+                            <field name="poste"/>
+                            <field name="type_missionnaire_id"/>
+                            <field name="indemnite"/>
+                      </group>
+                      <group name="group_top" col="3">
+                            <field name="prise_en_charge"/>
+                            <field name="avance"/>
+                            <field name="restant"/>
+                            <field name="total"/>
+                            <field name="contrat"/>
+                      </group>
+                    <group name="group_top" col="3">
+                            <field name="mission_id"/>
+                      </group>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+     <menuitem
+        name="Configuration"
+        id="menu_conf_mission"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_equipe_miss"
+        name="Equipe"
+        parent="menu_conf_mission"
+        action="mission_equipe_action"
+        sequence="3"/>
+
+</odoo>

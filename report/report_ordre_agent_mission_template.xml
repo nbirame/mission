@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_ordre_agent_mission">
+    <t  t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <img src="/mission/static/src/img/fon.jpeg" alt="Logo" class="w-110 h-5"/>
+                <div class="page">
+                    <h1 style="text-align:center;color:#800000;margin-top:50px;">Ordre de Mission</h1><br/><br/>
+                    <div t-foreach="o.equipe_id" t-as="agent">
+                        <p>
+                         <span class="ordre_text">  Nom :</span>
+                          <span t-esc="agent.employee_id.name.split(' ')[-1]"/>
+                     </p> <br/>
+
+                     <p>
+                         <span class="ordre_text"> Prénom :</span>
+                         <t t-foreach="agent.employee_id.name.split(' ')[:-1]" t-as="prenom">
+                            <span t-out="prenom"/>
+                        </t>
+                     </p> <br/>
+                     <p>
+                          <span class="ordre_text">Fonction :</span>
+                         <span t-field="agent.employee_id.job_title"/>
+                     </p><br/>
+                            <!-- eliminer les lignes vides -->
+                        <p>
+                            <span class="ordre_text">Trajet :</span>
+                            <span t-esc="o.trajet" class="font-weight-bold"/>
+                        </p><br/>
+                        <p>
+                            <span class="ordre_text">Motifs :</span>
+                            <span t-esc="o.motif" class="font-weight-bold"/>
+                        </p><br/>
+                        <p>
+                            <span class="ordre_text">Date de départ :</span>
+                            <span t-esc="o.date_depart" class="font-weight-bold" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                        </p><br/>
+                        <p>
+                            <span class="ordre_text">Date de retour :</span>
+                            <span t-esc="o.date_retour" class="font-weight-bold" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                        </p><br/>
+                        <p>
+                            <span class="ordre_text"> Durée :</span>
+                            <span  t-esc="o.duree" class="font-weight-bold"/> jours
+                            <span t-esc="o.nb_nuit" class="font-weight-bold"/> (nuitée)
+                        </p><br/>
+                        <div>
+                            <p t-if="o.moyen_transport == 'Voiture'">
+                               <span class="ordre_text"> Moyen de Transport :</span>
+                                <span> Véhicule de Mission </span>
+                                <t t-foreach="agent.mission_id.vehicule_id" t-as="vehicle">
+                                     <t t-foreach="vehicle.voiture_id.name.split('/')" t-as="vehicle">
+                                        <span t-out="vehicle"/>
+                                         <span></span>
+                                    </t>
+                                </t>
+                            </p>
+                            <p t-else="">
+                               <span class="ordre_text"> Moyen de Transport :</span>
+                                    <span t-field="o.moyen_transport"/>
+                            </p><br/>
+                        </div>
+                        <p>
+                            <span class="ordre_text"> Prise en charge :</span>
+                            <span t-esc="agent.prise_en_charge" class="font-weight-bold"/>
+                        </p><br/><br/>
+                    </div>
+                    <p class="text-right">
+                        Fait à Dakar, le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                    </p>
+                    <h6 class="text-right">
+                        LE SECRETAIRE GENERAL
+                    </h6>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_zone_action" model="ir.actions.act_window">
+        <field name="name">Zone de Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.zone</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+          </p>
+        </field>
+    </record>
+    <record id="mission_zone_tree" model="ir.ui.view">
+        <field name="name">mission.zone.tree</field>
+        <field name="model">mission.zone</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des zones de mission">
+                <field name="description"/>
+                <field name="zone_mission"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_zone_search" model="ir.ui.view">
+        <field name="model">mission.zone</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="description"/>
+                <field name="zone_mission"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_zone_form" model="ir.ui.view">
+        <field name="name">mission.zone.form</field>
+        <field name="model">mission.zone</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une zone de mission">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="zone_mission"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+      <menuitem
+        name="Configuration"
+        id="menu_conf_mission"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_zone_miss"
+        name="Zone"
+        parent="menu_conf_mission"
+        groups="mission.group_mission_genereaux,mission.group_mission_visiteur"
+        action="mission_zone_action"
+        sequence="8"/>
+
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_compagnie_action" model="ir.actions.act_window">
+        <field name="name">compagnie de Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.compagnie</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_compagnie_tree" model="ir.ui.view">
+        <field name="name">mission.compagnie.tree</field>
+        <field name="model">mission.compagnie</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des compagnie de mission">
+                <field name="name" string="Companie"/>
+                <field name="employee_id"/>
+                <field name="ticket"/>
+                <field name="ticket_number"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_compagnie_search" model="ir.ui.view">
+        <field name="model">mission.compagnie</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="name"/>
+                <field name="employee_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_compagnie_form" model="ir.ui.view">
+        <field name="name">mission.compagnie.form</field>
+        <field name="model">mission.compagnie</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une compagnie de mission">
+                <sheet>
+                  <div class="oe_title">
+                      <group name="group_top" col="4">
+                          <field name="name" string="Companie"/>
+                          <field name="employee_id"/>
+                          <field name="ticket"/>
+                          <field name="ticket_number"/>
+                          <field name="total"/>
+                          <field name="delegation_id"/>
+                      </group>
+                  </div>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+    <menuitem
+        name="Compagnie de Mission"
+        id="menu_compagnie_mission"
+        parent="menu_mission_root"
+        sequence="4"/>
+    <menuitem
+        id="menu_compagnie_miss"
+        name="Compagnie"
+        parent="menu_compagnie_mission"
+        action="mission_compagnie_action"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        sequence="4"/>
+
+</odoo>

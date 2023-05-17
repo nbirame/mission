@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_etat_mission">
+    <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="res">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5 style="text-align:center;color:#800000;margin-top:50px;">ETAT RECAPUTILATIF DES FRAIS DE MISSION N°
+                  <span t-field="res.name"/> (du
+                  <span t-esc="res.date_depart" style="font-weight: bold;" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/> au
+                  <span t-esc="res.date_retour" style="font-weight: bold;" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>)
+                  <span t-esc="res.trajet" style="font-weight: bold;"/>
+                </h5>
+                 <table class="table table-bordered mb64 table-striped">
+                    <thead>
+                      <tr>
+                        <th>N° d'ordre</th>
+                        <th>Prénom</th>
+                        <th>Nom </th>
+                        <th>Fonction</th>
+                        <th>Nombre de nuités</th>
+                        <th>Montant Indemnité Journalière</th>
+                        <th>Montant avancé</th>
+                        <th>Montant restant à payer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="sum_avance" t-value="0"/>
+                        <t t-set="sum_restant" t-value="0"/>
+                      <tr t-foreach="res.equipe_id" t-as="equipe">
+                            <td>
+                                <span t-esc="equipe_index+1" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                                 <t t-foreach="equipe.employee_id.name.split(' ')[:-1]" t-as="prenom">
+                                    <span t-out="prenom"/>
+                                </t>
+                            </td>
+                           <td>
+                                <span t-esc="equipe.employee_id.name.split(' ')[-1]" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                              <span t-esc="equipe.poste" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                              <span t-esc="res.nb_nuit" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                                <span t-esc="'{:,}'.format(equipe.indemnite).replace(',', ' ')" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                                <span t-esc="'{:,}'.format(equipe.avance).replace(',', ' ')" style="font-weight: bold;"/>
+                                 <t t-set="sum_avance" t-value="sum_avance+equipe.avance"/>
+                            </td>
+                            <td>
+                                <span t-esc="'{:,}'.format(equipe.restant).replace(',', ' ')" style="font-weight: bold;"/>
+                                 <t t-set="sum_restant" t-value="sum_restant+equipe.restant"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" style="text-align:center;">
+                                Total
+                            </td>
+                            <td>
+                                <t t-esc="'{:,}'.format(sum_avance).replace(',', ' ')"/>
+                            </td>
+                             <td>
+                                <t t-esc="'{:,}'.format(sum_restant).replace(',', ' ')"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Arrêté le présent état récapitulatif au montant de
+                    <span t-esc="'{:,}'.format(res.cout_mission).replace(',', ' ')" style="font-weight: bold;"/>FCFA
+                </p>
+                <p class="text-left">
+                    <span class="text-left">
+                        Le Directeur administratif et financier
+                    </span>
+                </p>
+                <p class="text-right">
+                    <span class="text-right">
+                        L'Administrateur général
+                    </span>
+                </p>
+                    </div>
+                </t>
+            </t>
+    </t>
+</template>
+
+
+
+</odoo>

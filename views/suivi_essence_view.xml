@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_suivi_essence_action" model="ir.actions.act_window">
+        <field name="name">Suivi Essence</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.suivi_essence</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_suivi_essence_tree" model="ir.ui.view">
+        <field name="name">mission.suivi_essence.tree</field>
+        <field name="model">mission.suivi_essence</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des Suivi du niveau d'essence">
+                <field name="date_of_departure_format"/>
+                <field name="conducteur_id"/>
+                <field name="time_of_departure"  string="Heure de Depart"/>
+                <field name="destination"/>
+                <field name="vehicle_id"/>
+                <field name="number_liter"/>
+                <field name="liter_price"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_suivi_essence_search" model="ir.ui.view">
+        <field name="model">mission.suivi_essence</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="date_of_departure"/>
+               <field name="conducteur_id"/>
+               <field name="vehicle_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_suivi_essence_form" model="ir.ui.view">
+        <field name="name">mission.suivi_essence.form</field>
+        <field name="model">mission.suivi_essence</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'un suivi du niveau d'essence">
+                <sheet>
+                      <group name="group_top" col="4" string="Détail du véhicule">
+                          <field name="vehicle_id" />
+                      </group>
+                      <group name="group_top" col="4" string="Détails du ravitaillement en carburant">
+                             <field name="source"/>
+                             <field name="carte_id"/>
+                             <field name="number_liter"/>
+                             <field name="liter_price"/>
+                             <field name="total_price"/>
+                      </group>
+                      <group name="group_top" col="4">
+                          <h1>Détail kilométrique</h1>
+                          <field name="mileage"/>
+                      </group>
+                      <group name="group_top" col="4" string="Informations supplémentaires">
+                          <field name="date_of_departure"/>
+                          <field name="conducteur_id"/>
+                          <field name="destination"/>
+                          <field name="obsevation"/>
+                          <field name="note"/>
+                      </group>
+                    <!--<notebook>
+                        <page name="page_lines" string="Odometer DE LA MISSION">
+                         <field name="odometer_ids">
+                                 <tree string="Odometer" editable="bottom">
+                                        <field name="date"/>
+                                        <field name="vehicle_id"/>
+                                        <field name="driver_id"/>
+                                        <field name="value"/>
+                                 </tree>
+                         </field>
+                      </page>
+                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+     <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+    <menuitem
+        name="Parc Automobile"
+        id="menu_mission_voiture"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_suivi_de_mission"
+        name="Suivi du niveau d'essence"
+        parent="menu_mission_voiture"
+        action="mission_suivi_essence_action"
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
+        sequence="3"/>
+
+</odoo>

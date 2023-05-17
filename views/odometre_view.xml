@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="fleet_vehicle_odometer_view_tree_inherit" model="ir.ui.view">
+             <field name="name">fleet.vehicle.odometer.tree</field>
+            <field name="model">fleet.vehicle.odometer</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_odometer_view_tree"/>
+            <field name="arch" type="xml">
+                 <!--<div class="oe_button_box" name="button_box">
+                     <button name="return_action_to_open_suivi"
+                             type="object"
+                             class="oe_stat_button"
+                             icon="fa-flask"
+                             context="{'xml_id':'mission_suivi_essence_action'}"
+                             help="Voir le suivi d'essence">
+                             <field name="suivi_account" widget="statinfo" string="Suivi d'essence"/>
+                     </button>
+                </div>-->
+                <field name ="driver_id" position="replace">
+                    <field name="conducteur_id"/>
+                </field>
+                <!--<xpath expr="//field[@name='model_id']" position="after">
+                    <field name="state"/>
+                    <field name="mission_id"/>
+                </xpath>-->
+            </field>
+        </record>
+    </data>
+
+
+
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+    <menuitem
+        name="Parc Automobile"
+        id="menu_mission_voiture"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_odometre_voiture_de_mission"
+        name="Odometre"
+        parent="menu_mission_voiture"
+        action="fleet.fleet_vehicle_odometer_action"
+        groups="mission.group_mission_admin"
+        sequence="3"/>
+
+</odoo>

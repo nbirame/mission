@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Cron qui permet de passer le status de la mission en mission en cours du la date de départ
+    est arrivé ou mission terminer si la date de retour est arrivé
+    -->
+    <record id="con_mission_state" model="ir.cron">
+       <field name="name">Mission</field>
+       <field name="model_id" ref="model_mission_delegation"/>
+       <field name="state">code</field>
+       <field name="code">model.con_mission_state_method()</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name='interval_number'>1</field>
+       <field name='interval_type'>days</field>
+       <field name="numbercall">-1</field>
+       <field name="active" eval="True"/>
+   </record>
+    <!-- Cron qui permet l'envoie automatique de l'etat liquidatif d'une mission au service DAF
+     après confirmation de la mission -->
+   <record id="etat_mission_state" model="ir.cron">
+       <field name="name">Mission Send Mail</field>
+       <field name="model_id" ref="model_mission_delegation"/>
+       <field name="state">code</field>
+       <field name="code">model.etat_mission_state_method()</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name='interval_number'>1</field>
+       <field name='interval_type'>days</field>
+       <field name="numbercall">-1</field>
+       <field name="active" eval="True"/>
+   </record>
+    <!--Cron qui permet l'envoie de l'equipe de mission  par email en appelant la méthode
+     con_mission_state_method qui est dans le model delegation(mission)
+    -->
+    <record id="equipe_mission_state" model="ir.cron">
+       <field name="name">Mission Send Mail</field>
+       <field name="model_id" ref="model_mission_delegation"/>
+       <field name="state">code</field>
+       <field name="code">model.equipe_mission_state_method()</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name='interval_number'>1</field>
+       <field name='interval_type'>days</field>
+       <field name="numbercall">-1</field>
+       <field name="active" eval="True"/>
+   </record>
+    <record id="mission_delegation_action" model="ir.actions.act_window">
+        <field name="name">Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.delegation</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_delegation_tree" model="ir.ui.view">
+        <field name="name">mission.delegation.tree</field>
+        <field name="model">mission.delegation</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des delegations de mission">
+                <field name="name"/>
+                <field name="trajet"/>
+                <field name="chef" domain="[('state', '=', 'disponible')]"/>
+                <field name="type_mission_id"/>
+                <field name="date_depart"/>
+                <field name="date_retour"/>
+                <field name="state" widget="badge" decoration-warning="state == 'confirmer'" decoration-info="state == 'en_cours'" decoration-danger="state == 'programmer'" decoration-success="state == 'terminer'"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_delegation_search" model="ir.ui.view">
+        <field name="model">mission.delegation</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="name"/>
+                <filter string="Programmer" name="state" domain="[('state', '=', 'programmer')]"/>
+                <separator/>
+                <filter string="En cours" name="state" domain="[('state', '=', 'en_cours')]"/>
+                <separator/>
+                <filter string="Terminer" name="state" domain="[('state', '=', 'terminer')]"/>
+                <separator/>
+                <filter string="Confirmer" name="state" domain="[('state', '=', 'confirmer')]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Chef de Mission" name="group_by_chef" context="{'group_by': 'chef'}"/>
+                    <filter string="Type de Mission" name="group_by_type_mission_id" context="{'group_by': 'type_mission_id'}"/>
+                    <separator/>
+                    <filter string="Lieu" name="group_by_lieu_arrive" context="{'group_by': 'lieu_arrive'}"/>
+                    <filter string="Creation Date" name="group_by_date_depart" context="{'group_by': 'date_depart'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="mission_delegation_form" model="ir.ui.view">
+        <field name="name">mission.delegation.form</field>
+        <field name="model">mission.delegation</field>
+        <field name="arch" type="xml">
+            <form string="Détail de la mission">
+                <header>
+                   <!-- <button name="envoie_email_method"
+                            groups="mission.group_mission_admin"
+                            type="object"
+                            class="oe_stat_button"
+                             icon="fa-paper-plane"
+                            string="Notifier RH l'equipe de Mission"
+                             context="{'xml_id':'email_template_equipe_mission'}"
+                             help="show the mission for this employee">
+                             <field name="state" widget="statinfo" string="Mission"/>
+                    </button>
+                    <button name="envoie_email_method"
+                            groups="mission.group_mission_admin"
+                            type="object"
+                            class="oe_stat_button"
+                             icon="fa-paper-plane"
+                            string="Notifier DAF l'etat liquidatif de Mission"
+                             context="{'xml_id':'email_template_equipe_mission'}"
+                             help="show the mission for this employee">
+                             <field name="state" widget="statinfo" string="Mission"/>
+                    </button>
+                    <button name="action_send_mission_by_email" type="object" class="oe_highlight" string="Notifier l'equipe à RH" groups="mission.group_mission_genereaux"/>
+                    <button name="action_send_email_etat_mission" type="object" class="oe_highlight" string="Notifier l'etat liquidatif à RH" groups="mission.group_mission_daf,mission.group_mission_genereaux"/>-->
+                    <button name="print_report_mission" string="IMPRIMER L'ETAT LIQUIDATIF"  type="object" class="oe_highlight" groups="mission.group_mission_daf,mission.group_mission_assistant_daf"/>
+                    <!--<button name="print_report_agent" string="Télécharger l'Ordre de Mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>-->
+                   <button  name="action_terminer" string="Terminer" states="en_cours" type="object" class="oe_highlight" groups="mission.group_mission_admin"/>
+                    <button name="action_en_cours" string="Cours" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin"/>
+                    <button name="action_programmer" string="Remettre en Brouillon" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
+                    <button name="action_confirmer" string="Confirmer" states="programmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
+                    <button name="action_annuler" string="Annuler" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
+                    <field name="state" nolabel="1" widget="statusbar"  groups="mission.group_mission_genereaux"/>
+                </header>
+                <sheet>
+                      <group name="group_top" string="Ordre de mission"  col="4" >
+                          <field name="name" />
+                          <field name="chef" attrs="{'readonly':[('state', '!=', 'programmer')]}" domain="[('state', '=', 'disponible')]"/>
+                          <field name="zone_id" attrs="{'invisible': [('type_mission_id', '=', 2)], 'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="type_mission_id" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="motif" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="trajet" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="lettre" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="moyen_transport" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                      </group>
+
+                      <group name="group_top" col="4" string="Départ">
+                          <field name="date_depart" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="date_retour" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="lieu_depart" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="lieu_arrive" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="distance"/>
+                          <field name="carburant" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}"/>
+                      </group>
+                      <group name="group_top" col="4">
+                            <field name="duree"/>
+                            <field name="observation" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                           <field name="nb_nuit"/>
+                            <field name="total_perdieme"/>
+                            <field name="cout_mission"/>
+                      </group>
+                       <group name="group_top" col="4">
+                          <field name="rapport_mission" filename="ordre_mission_name" attrs="{'readonly':[('state', '!=', 'terminer')]}"/>
+                          <field name="rapport_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                           <field name="ordre_mission" filename="ordre_mission_name" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="ordre_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                      </group>
+                  <notebook>
+                      <page name="page_lines" string="EQUIPE DE LA MISSION">
+                         <field name="equipe_id" attrs="{'readonly':[('state', '!=', 'programmer')]}">
+                                 <tree string="La liste des equipes de mission" editable="bottom">
+                                        <field name="employee_id" domain="[('state', '=', 'disponible')]"/>
+                                        <field name="poste"/>
+                                        <field name="type_missionnaire_id"/>
+                                        <field name="indemnite"/>
+                                        <field name="prise_en_charge"/>
+                                        <field name="avance"/>
+                                        <field name="restant"/>
+                                        <field name="total"/>
+                                        <button name="report_print" string="Imprimer odre de mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
+                                    </tree>
+                         </field>
+                      </page>
+                      <page name="page_lines" string="VEHICULES DE LA MISSION" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}">
+                        <field name="vehicule_id" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}">
+                            <tree string="La liste des véhicule de mission" editable="bottom">
+                                 <field name="voiture_id" domain="[('state', '=', 'disponible')]"/>
+                                <field name="conducteur"/>
+                            </tree>
+                        </field>
+                      </page>
+                      <page name="page_lines" string="Carburant" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}">
+                        <group name="group_top" col="4">
+                         <!--   attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}"-->
+                          <field name="source" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                           <field name="nombre_ticket" attrs="{'invisible': [('source', '=', 'Cart')]}"/>
+                            <field name="prix_littre" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="cartecarburant_id" attrs="{'invisible': [ ('source', '=', 'Ticket')], 'readonly':[('state', '!=', 'programmer')]}"/>
+                      </group>
+                      <group name="group_top" col="4">
+                           <field name="cout_ticket" attrs="{'invisible': [('source', '=', 'Cart')], 'readonly':[('state', '!=', 'programmer')]}"/>
+                            <field name="cout_carburant"/>
+                            <field name="dotation_carburant"/>
+                      </group>
+                        <field name="consommation_id"  attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}">
+                           <tree string="Consommation" editable="bottom">
+                               <field name="vehicule_id"/>
+                                 <field name="nb_littre"/>
+                               <field name="prix"/>
+                               <field name="total"/>
+                               <field name="carte_id"/>
+                            </tree>
+                         </field>
+                      </page>
+                    </notebook>
+
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_employee,mission.group_mission_daf"
+        id="menu_mission_root"
+    />
+    <menuitem
+        name="Mission"
+        id="menu_mission"
+        parent="menu_mission_root"
+        sequence="1"/>
+    <menuitem
+        id="menu_delegation_miss"
+        name="Mission"
+        parent="menu_mission"
+        action="mission_delegation_action"
+        web_icon="mission,static/description/icon.png"
+        sequence="1"/>
+
+</odoo>

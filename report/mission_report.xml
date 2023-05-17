@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        string="Etat liquidatif"
+        id="report_mission_delegation"
+        model="mission.delegation"
+        report_type="qweb-pdf"
+        menu="False"
+        name="mission.report_mission"
+        file="mission.report_mission"
+    />
+</odoo>

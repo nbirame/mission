@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        string="Ordre Mission"
+        id="report_mission_agent"
+        model="mission.equipe"
+        report_type="qweb-pdf"
+        menu="False"
+        name="mission.report_ordre_mission"
+        file="mission.report_ordre_mission"
+    />
+</odoo>

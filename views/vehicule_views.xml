@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_vehicle_action" model="ir.actions.act_window">
+        <field name="name">Voiture</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.vehicle</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_voiture_tree" model="ir.ui.view">
+        <field name="name">mission.vehicle.tree</field>
+        <field name="model">mission.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des voitures de mission">
+                <field name="voiture_id"/>
+                <field name="conducteur"/>
+                <field name="mission_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_vehicle_search" model="ir.ui.view">
+        <field name="model">mission.vehicle</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="voiture_id"/>
+                <field name="conducteur"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_vehicle_form" model="ir.ui.view">
+        <field name="name">mission.vehicle.form</field>
+        <field name="model">mission.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une voiture de mission">
+                <sheet>
+
+                      <group name="group_top" col="4">
+                          <field name="voiture_id"/>
+                          <field name="conducteur"/>
+                          <field name="mission_id"/>
+                      </group>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+    <menuitem
+        name="Parc Automobile"
+        id="menu_mission_voiture"
+        groups="mission.group_mission_admin"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_voiture_miss"
+        name="Voiture de Mission"
+        parent="menu_mission_voiture"
+        groups="mission.group_mission_admin"
+        action="mission_vehicle_action"
+        sequence="1"/>
+
+</odoo>

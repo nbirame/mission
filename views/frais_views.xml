@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_equipe_action" model="ir.actions.act_window">
+        <field name="name">Frais de Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.equipe</field>
+    </record>
+    <record id="mission_equipe_tree" model="ir.ui.view">
+        <field name="name">mission.equipe.tree</field>
+        <field name="model">mission.equipe</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des ordres de mission" create="false" edit="false">
+                <field name="mission_id"/>
+                <field name="employee_id"/>
+                <field name="poste"/>
+                <field name="indemnite"/>
+                <field name="avance"/>
+                <field name="restant"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="mission_equipe_form" model="ir.ui.view">
+        <field name="name">mission.equipe.form</field>
+        <field name="model">mission.equipe</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" string="Détail ordre de misson" >
+                <header>
+                    <button name="report_print" string="Télécharger"  type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                      <group name="group_top" col="4">
+                          <field name="mission_id" />
+                          <field name="employee_id"/>
+                          <field name="poste"/>
+                      </group>
+                       <group name="group_top" col="4">
+                          <field name="indemnite" />
+                          <field name="avance"/>
+                          <field name="restant"/>
+                           <field name="total"/>
+                      </group>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+    <menuitem
+        name="Mission"
+        id="menu_mission"
+        parent="menu_mission_root"
+        sequence="1"/>
+    <menuitem
+        id="menu_equipe_miss"
+        name="Frais de Mission"
+        parent="menu_mission"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        action="mission_equipe_action"
+        sequence="2"/>
+
+</odoo>

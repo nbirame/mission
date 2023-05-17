@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_indemnite_action" model="ir.actions.act_window">
+        <field name="name">Indemnite de Mission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.indemnite</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_indemnite_tree" model="ir.ui.view">
+        <field name="name">mission.indemnite.tree</field>
+        <field name="model">mission.indemnite</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des indemnites de mission">
+                <field name="montant"/>
+                <field name="missionnaire_id"/>
+                <field name="type_mission_id"/>
+                <field name="zone_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_indemnite_search" model="ir.ui.view">
+        <field name="model">mission.indemnite</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="type_mission_id"/>
+                <field name="zone_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_indemnite_form" model="ir.ui.view">
+        <field name="name">mission.indemnite.form</field>
+        <field name="model">mission.indemnite</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'indemnite de mission">
+                <sheet>
+                  <div class="oe_title">
+                      <group name="group_top" col="4">
+                          <field name="montant"/>
+                          <field name="missionnaire_id"/>
+                      </group>
+                      <group name="group_top" col="4">
+                          <field name="type_mission_id"/>
+                          <field name="zone_id"/>
+                      </group>
+                  </div>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Mission"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        id="menu_mission_root"/>
+     <menuitem
+        name="Configuration"
+        id="menu_conf_mission"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_indemnite_miss"
+        name="Indemnité"
+        parent="menu_conf_mission"
+        action="mission_indemnite_action"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        sequence="13"/>
+
+</odoo>

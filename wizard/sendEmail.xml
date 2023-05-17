@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_envoieMail_form" model="ir.ui.view">
+        <field name="name">mission.envoyer.wizard</field>
+        <field name="model">mission.envoyer</field>
+        <field name="arch" type="xml">
+            <form string="Envoie email">
+                <sheet>
+                      <group name="group_top">
+                          <field name="message" />
+                          <field name="ordre_mission" filename="ordre_mission_name"/>
+                          <field name="ordre_mission_name" invisible="1"/>
+                      </group>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+                 <footer>
+                        <button string="Envoyer" name="action_send_etat_signer_mission_by_email" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+            <record id="mission_envoieMail_wizard" model="ir.actions.act_window">
+            <field name="name">Send Email</field>
+            <field name="res_model">mission.envoyer</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mission_envoieMail_form"/>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

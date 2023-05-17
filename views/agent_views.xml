@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="view_agent_form_inherit" model="ir.ui.view">
+             <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_button_box" name="button_box">
+                     <button name="return_action_to_open"
+                             type="object"
+                             class="oe_stat_button"
+                             icon="fa-paper-plane"
+                             context="{'xml_id':'mission_equipe_action'}"
+                             help="show the mission for this employee">
+                             <field name="number_mission_participation" widget="statinfo" string="Mission"/>
+                     </button>
+                </div>
+            </field>
+        </record>
+    </data>
+
+<menuitem
+        name="Mission"
+        id="menu_mission_root"/>
+
+    <menuitem
+        name="Configuration"
+        id="menu_conf_mission"
+        parent="menu_mission_root"
+        sequence="2"/>
+    <menuitem
+        id="menu_mission_agent"
+        name="Employée"
+        parent="menu_conf_mission"
+        groups="mission.group_mission_rh"
+        action="hr.open_view_employee_list_my"
+        sequence="2"/>
+</odoo>

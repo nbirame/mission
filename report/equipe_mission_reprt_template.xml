@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_equipe_mission">
+    <div class="header " style="margin-top: 0px;">
+         <img src="/mission/static/src/img/fon.jpeg" alt="Logo" class="w-910 h-3"/>
+     </div>
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+             <t t-call="web.external_layout">
+<!--                 <div class="mt-0">-->
+<!--                    <img src="/mission/static/src/img/fon.jpeg" alt="Logo" class="w-110 h-5"/>-->
+<!--                 </div>-->
+                <div class="page">
+                    <h5 style="text-align:center;color:#800000;margin-top:50px;">EQUIPE DE MISSION N°
+                  <span t-field="o.name"/> (du
+                  <span t-esc="o.date_depart" style="font-weight: bold;" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/> au
+                  <span t-esc="o.date_retour" style="font-weight: bold;" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>)
+                  <span t-esc="o.trajet" style="font-weight: bold;"/>
+                </h5>
+                 <table class="table table-bordered mb64 table-striped">
+                    <thead>
+                      <tr>
+                        <th>N° d'ordre</th>
+                        <th>Prénom</th>
+                        <th>Nom </th>
+                        <th>Fonction</th>
+                        <th>Nombres de jours</th>
+                        <th>Nombre de nuités</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="sum_row2" t-value="0"/>
+                      <tr t-foreach="o.equipe_id" t-as="equipe">
+                            <td>
+                                <span t-esc="equipe_index+1" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                                 <t t-foreach="equipe.employee_id.name.split(' ')[:-1]" t-as="prenom">
+                                    <span t-out="prenom"/>
+                                </t>
+                            </td>
+                           <td>
+                                <span t-esc="equipe.employee_id.name.split(' ')[-1]" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                              <span t-esc="equipe.poste" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                              <span t-esc="o.duree" style="font-weight: bold;"/>
+                            </td>
+                            <td>
+                              <span t-esc="o.nb_nuit" style="font-weight: bold;"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-right">
+                    Fait à Dakar, le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                </p>
+                <h6 class="text-right">
+                    LE Directeur des moyens généreaux
+                </h6>
+                </div>
+            </t>
+        </t>
+    </t>
+    </template>
+
+
+
+</odoo>

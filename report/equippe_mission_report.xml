@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        string="Mission"
+        id="report_mission_delegation_equipe"
+        model="mission.delegation"
+        report_type="qweb-pdf"
+        menu="False"
+        name="mission.report_equipe_mission"
+        file="mission.report_equipe_mission"
+    />
+</odoo>
