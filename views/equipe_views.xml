@@ -19,6 +19,8 @@
                 <field name="avance"/>
                 <field name="restant"/>
                 <field name="total"/>
+                <field name="ordre_mission" filename="ordre_mission_name" invisible="0"/>
+                <field name="ordre_mission_name" invisible="1"/>
             </tree>
         </field>
     </record>

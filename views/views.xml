@@ -59,13 +59,13 @@
             <field name="arch" type="xml">
             <search>
                <field name="name"/>
-                <filter string="Programmer" name="state" domain="[('state', '=', 'programmer')]"/>
+                <filter string="Programmée" name="state" domain="[('state', '=', 'programmer')]"/>
                 <separator/>
                 <filter string="En cours" name="state" domain="[('state', '=', 'en_cours')]"/>
                 <separator/>
-                <filter string="Terminer" name="state" domain="[('state', '=', 'terminer')]"/>
+                <filter string="Terminée" name="state" domain="[('state', '=', 'terminer')]"/>
                 <separator/>
-                <filter string="Confirmer" name="state" domain="[('state', '=', 'confirmer')]"/>
+                <filter string="Confirmée" name="state" domain="[('state', '=', 'confirmer')]"/>
                 <separator/>
                 <group expand="1" string="Group By">
                     <filter string="Chef de Mission" name="group_by_chef" context="{'group_by': 'chef'}"/>
@@ -95,7 +95,7 @@
                       <group name="group_top" string="Ordre de mission"  col="4" >
                           <field name="name" />
                           <field name="chef" attrs="{'readonly':[('state', '!=', 'programmer')]}" domain="[('state', '=', 'disponible')]"/>
-                          <field name="zone_id" attrs="{'invisible': [('type_mission_id', '=', 2)], 'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="zone_id" attrs="{'invisible': [('type_mission_id', '==', 4)], 'readonly':[('state', '!=', 'programmer')]}"/>
                           <field name="type_mission_id" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
                           <field name="motif" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
                           <field name="trajet" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
@@ -119,14 +119,14 @@
                             <field name="cout_mission"/>
                       </group>
                        <group name="group_top" col="4">
-                          <field name="rapport_mission" filename="ordre_mission_name" attrs="{'readonly':[('state', '!=', 'terminer')]}"/>
-                          <field name="rapport_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
-                           <field name="ordre_mission" filename="ordre_mission_name" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
-                          <field name="ordre_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="rapport_mission" filename="rapport_mission_name" attrs="{'readonly':[('state', '!=', 'terminer')]}" invisible="0"/>
+                          <field name="rapport_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'terminer')]}"/>
+                           <!--<field name="ordre_mission" filename="ordre_mission_name" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
+                          <field name="ordre_mission_name" invisible="1" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>-->
                       </group>
                   <notebook>
                       <page name="page_lines" string="EQUIPE DE LA MISSION">
-                         <field name="equipe_id" attrs="{'readonly':[('state', '!=', 'programmer')]}">
+                         <field name="equipe_id" attrs="{'readonly':['|', ('state', '==', 'en_cours'),('state', '==', 'terminer') ]}">
                                  <tree string="La liste des equipes de mission" editable="bottom">
                                         <field name="employee_id" domain="[('state', '=', 'disponible')]"/>
                                         <field name="poste"/>
@@ -136,6 +136,8 @@
                                         <field name="avance"/>
                                         <field name="restant"/>
                                         <field name="total"/>
+                                        <field name="ordre_mission" filename="ordre_mission_name" invisible="0"/>
+                                        <field name="ordre_mission_name" invisible="1"/>
                                         <button name="report_print" string="Imprimer odre de mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
                                     </tree>
                          </field>

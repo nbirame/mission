@@ -19,6 +19,8 @@ class Equipe(models.Model):
     total = fields.Integer(string="Montant Total", compute="_compute_total", store=True)
     contrat = fields.Binary(string="Joindre OM signé")
     mission_id = fields.Many2one('mission.delegation', string="Mission")
+    ordre_mission = fields.Binary(string="Ordre de la Mission", store=True)
+    ordre_mission_name = fields.Char(string="OM Signé", store=True)
 
     def name_get(self):
         eq = []

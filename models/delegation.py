@@ -34,7 +34,7 @@ class Delegation(models.Model):
     carburant = fields.Float(string="Nombre de littres carburant nécessaire", store=True)
     observation = fields.Text(string="Observation")
     total_perdieme = fields.Integer(string="Total perdieme", compute="_compute_total_perdieme", store=True)
-    cout_mission = fields.Integer(string="Cout de la mission", store=True)
+    cout_mission = fields.Integer(string="Cout de la mission", compute="_depends_cout_mission", store=True)
     equipe_id = fields.One2many("mission.equipe", "mission_id", string="Equipe de la mission", store=True)
     vehicule_id = fields.One2many("mission.vehicle", "mission_id", string="Les Véhicule de la mission", store=True)
     consommation_id = fields.One2many("carburant.consommation", "delegation_id", string="Consomation", store=True)
@@ -52,17 +52,16 @@ class Delegation(models.Model):
     cartecarburant_id = fields.Many2one("carburant.cartecarburant", string="Choisir la carte de carburant")
     state = fields.Selection([
         ('programmer', 'Brouillon'),
-        ('confirmer', 'Confirmer'),
-        ('confirmer', 'Confirmer'),
+        ('confirmer', 'Confirmée'),
         ('en_cours', 'En cours'),
-        ('terminer', 'Terminer'),
-        ('annuler', 'Annuler'),
+        ('terminer', 'Terminée'),
+        ('annuler', 'Annulée'),
     ],
         default='programmer', store=True, string="Status")
     rapport_mission = fields.Binary(string="Rapport de la Mission")
-    rapport_mission_name = fields.Char(string="Rapport de la Mission")
-    ordre_mission = fields.Binary(string="Ordre de la Mission")
-    ordre_mission_name = fields.Char(string="Ordre de la Mission")
+    rapport_mission_name = fields.Char(string="Rapport de la Mission", store=True,)
+    # ordre_mission = fields.Binary(string="Ordre de la Mission")
+    # ordre_mission_name = fields.Char(string="Ordre de la Mission")
 
     # contrainte pour éviter qu'un employé soit dans deux équipes de mission dans une meme période
     @api.constrains("chef", "date_depart", "date_retour")
@@ -75,7 +74,8 @@ class Delegation(models.Model):
                         mission.date_depart <= record.date_retour < mission.date_retour) or (
                         record.date_depart <= mission.date_depart < record.date_retour)):
                     if mission.chef.id == record.chef.id:
-                        raise ValidationError(_("Le chef de mission doit être en mission pendant cette période"))
+                        if mission.chef.state == "en_mission":
+                            raise ValidationError(_("Le chef de mission doit être en mission pendant cette période"))
 
     @api.depends("lieu_arrive")
     def _compute_distance(self):
@@ -174,8 +174,8 @@ class Delegation(models.Model):
             else:
                 record.cout_carburant = 0
 
-    @api.onchange("total_perdieme", "consommation_id", "moyen_transport")
-    def _onchange_cout_mission(self):
+    @api.depends("total_perdieme", "consommation_id", "moyen_transport")
+    def _depends_cout_mission(self):
         for record in self:
             if record.cout_carburant or record.cout_ticket:
                 record.cout_mission = record.total_perdieme + record.cout_carburant + record.cout_ticket
@@ -260,6 +260,7 @@ class Delegation(models.Model):
     def action_confirmer(self):
         self.write({'state': 'confirmer'})
         self.action_send_email_etat_mission("email_template_equipe_mission")
+        self.action_send_email_etat_mission("etat_liquidatif_mission")
         # self.action_send_mission_by_email()
 
     def action_annuler(self):
@@ -366,3 +367,19 @@ class Delegation(models.Model):
     def convert_number_to_words(self, total):
         number_text = num2words(self.cout_mission, lang="fr")
         return number_text
+
+    def get_manager(self, groupe):
+        manager = []
+        users = self.env['res.users'].sudo().search([])
+        for user in users:
+            if user.has_group(groupe):
+                employe = self.env['hr.employee'].sudo().search([('user_id', '=', user.id)], limit=1)
+                if employe:
+                    manager.append(employe.work_email)
+        return ';'.join(manager)
+
+    def get_rh(self):
+        return self.get_manager('mission.group_mission_rh')
+
+    def get_daf(self):
+        return self.get_manager('mission.group_mission_daf')

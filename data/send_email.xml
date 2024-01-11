@@ -4,8 +4,7 @@
     <!--Email template -->
         <record id="email_template_equipe_mission" model="mail.template">
                 <field name="name">Equipe de Mission</field>
-<!--                <field name="email_from">{{object.chef.user_id.email or user.email_formatted}}</field>-->
-                <field name="email_to">biramendiaye71@gmail.com</field>
+                <field name="email_to">{{ object.get_rh() }}</field>
                 <field name="subject">Equipe de mission {{object.name or ''}}</field>
                 <field name="model_id" ref="mission.model_mission_delegation"/>
                 <field name="report_template" ref="mission.report_mission_delegation_equipe"/>
@@ -25,8 +24,7 @@
         </record>
          <record id="etat_liquidatif_mission" model="mail.template">
             <field name="name">Etat Liquidatif</field>
-<!--            <field name="email_from">nbirame559@gmail.com</field>-->
-            <field name="email_to">biramendiaye71@gmail.com</field>
+            <field name="email_to">{{ object.get_daf() }}</field>
             <field name="subject">Etat Liquidatif n°{{object.name or ''}}</field>
             <field name="model_id" ref="mission.model_mission_delegation"/>
             <field name="report_template" ref="mission.report_mission_delegation"/>
