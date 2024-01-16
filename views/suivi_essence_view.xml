@@ -88,7 +88,7 @@
     <menuitem
         id="menu_suivi_de_mission"
         name="Suivi du niveau d'essence"
-        parent="menu_mission_voiture"
+        parent="fleet.fleet_vehicles"
         action="mission_suivi_essence_action"
         groups="mission.group_mission_admin,mission.group_mission_visiteur,mission.group_mission_comptability"
         sequence="3"/>
