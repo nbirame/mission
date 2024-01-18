@@ -23,7 +23,7 @@
                     <th>Fonction</th>
                     <th>Nombre de nuités</th>
                     <th>Montant Indemnité Journalière</th>
-                    <th>Montant Total</th>
+                    <th>Montant Total Indemnité</th>
                     <th>
                         <span t-if="o.type_mission_id.type_miss == 'Interieur'">Montant avancé (2/3)</span>
                         <span t-else="">Montant avancé (4/5)</span>
