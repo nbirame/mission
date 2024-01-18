@@ -8,5 +8,6 @@
         menu="False"
         name="mission.report_equipe_mission"
         file="mission.report_equipe_mission"
+        print_report_name = "('Equipe_DE_Mission_N°'+object.name)"
     />
 </odoo>

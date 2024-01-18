@@ -8,5 +8,6 @@
         menu="False"
         name="mission.report_mission"
         file="mission.report_mission"
+        print_report_name = "('Etat_Liquidatif_N°'+object.name)"
     />
 </odoo>
