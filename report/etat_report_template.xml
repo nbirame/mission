@@ -72,7 +72,7 @@
                 </table>
                 <p>
                     Arrêté le présent état récapitulatif au montant de
-                    <span t-esc="'{:,}'.format(res.cout_mission).replace(',', ' ')" style="font-weight: bold;"/>FCFA
+                    <span t-esc="'{:,}'.format(res.total_perdieme).replace(',', ' ')" style="font-weight: bold;"/>FCFA
                 </p>
                 <p class="text-left">
                     <span class="text-left">
