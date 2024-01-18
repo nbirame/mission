@@ -57,10 +57,11 @@ class Equipe(models.Model):
         for record in self:
             record.total = record.mission_id.nb_nuit * record.indemnite
 
-    @api.depends("total", "mission_id", "type_missionnaire_id")
+    @api.depends("total", "mission_id")
     def _compute_avance(self):
         for record in self:
-            if record.mission_id.type_mission_id.type_miss == "Interieur":
+            # if record.mission_id.type_mission_id.type_miss == "Interieur":
+            if not record.mission_id.zone_id:
                 # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
                 record.avance = (record.total * 2) / 3
             else:
