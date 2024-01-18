@@ -61,7 +61,7 @@ class Equipe(models.Model):
     def _compute_avance(self):
         for record in self:
             # if record.mission_id.type_mission_id.type_miss == "interieur" or record.mission_id.type_mission_id.type_miss == "Interieur" or record.mission_id.type_mission_id.type_miss == "intérieur" or record.mission_id.type_mission_id.type_miss == "Intérieur":
-            if record.mission_id.type_mission_id == 2:
+            if record.mission_id.type_mission_id.type_miss == "Interieur":
                 # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
                 record.avance = (record.total * 2) / 3
             else:
