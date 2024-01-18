@@ -365,7 +365,7 @@ class Delegation(models.Model):
         return True
 
     def convert_number_to_words(self, total):
-        number_text = num2words(self.cout_mission, lang="fr")
+        number_text = num2words(self.total_perdieme, lang="fr")
         return number_text
 
     def get_manager(self, groupe):
