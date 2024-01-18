@@ -1,5 +1,4 @@
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo import fields, models, api
 
 
 class Equipe(models.Model):
@@ -34,17 +33,17 @@ class Equipe(models.Model):
         for record in self:
             if record.type_missionnaire_id:
                 indemnite = self.env['mission.indemnite'].sudo().search(
-                        [('missionnaire_id', '=', record.type_missionnaire_id.id),
-                         ('zone_id', '=', record.mission_id.zone_id.id),
-                         ('type_mission_id', '=', record.mission_id.type_mission_id.id)
-                         ], limit=1)
+                    [('missionnaire_id', '=', record.type_missionnaire_id.id),
+                     ('zone_id', '=', record.mission_id.zone_id.id),
+                     ('type_mission_id', '=', record.mission_id.type_mission_id.id)
+                     ], limit=1)
                 if indemnite:
                     record.indemnite = indemnite.montant
                 else:
                     indemnite = self.env['mission.indemnite'].sudo().search(
                         [
-                         ('type_mission_id', '=', record.mission_id.type_mission_id.id)
-                         ], limit=1)
+                            ('type_mission_id', '=', record.mission_id.type_mission_id.id)
+                        ], limit=1)
                     record.indemnite = indemnite.montant
 
     @api.depends("employee_id")
@@ -61,7 +60,10 @@ class Equipe(models.Model):
     @api.depends("total", "mission_id", "type_missionnaire_id")
     def _compute_avance(self):
         for record in self:
-            if record.mission_id.type_mission_id.type_miss == "interieur":
+            if record.mission_id.type_mission_id.type_miss == "interieur" or \
+                    record.mission_id.type_mission_id.type_miss == "Interieur" or \
+                    record.mission_id.type_mission_id.type_miss == "intérieur" or \
+                    record.mission_id.type_mission_id.type_miss == "Intérieur":
                 # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
                 record.avance = (record.total * 2) / 3
             else:
