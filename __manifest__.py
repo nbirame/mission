@@ -9,8 +9,8 @@
         Gestion des Missions d'entreprise
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Birame NDIAYE",
+    'website': "https://nbirameblog.odoo.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
