@@ -65,7 +65,7 @@ class Equipe(models.Model):
             if record.mission_id.type_mission_id.type_miss == 'Exterieur':
                 record.avance = (record.total * 4) / 5
                 # record.avance = (record.total * 2) / 3
-            else:
+            if record.mission_id.type_mission_id.type_miss == 'Interieur':
                 record.avance = (record.total * 2) / 3
                 # record.avance = (record.total * 4) / 5
 
