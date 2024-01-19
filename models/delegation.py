@@ -82,6 +82,17 @@ class Delegation(models.Model):
         for record in self:
             record.distance = record.lieu_arrive.distance * 2
 
+    @api.onchange('type_mission_id')
+    def _onchange_zone_id(self):
+        for record in self:
+            if record.type_mission_id.type_miss == 'Interieur' or \
+                    record.type_mission_id.type_miss == 'interieur' or \
+                    record.type_mission_id.type_miss == 'intérieur' or \
+                    record.type_mission_id.type_miss == 'Intérieure' or \
+                    record.type_mission_id.type_miss == 'intérieure' or \
+                    record.type_mission_id.type_miss == 'interne' or record.type_mission_id.type_miss == 'Interne':
+                record.zone_id = ''
+
     @api.onchange("distance")
     def _onchange_carburant(self):
         for record in self:

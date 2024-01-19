@@ -62,7 +62,12 @@ class Equipe(models.Model):
     @api.depends("total", "mission_id")
     def _compute_avance(self):
         for record in self:
-            if record.mission_id.type_mission_id.type_miss == 'Exterieur':
+            if record.mission_id.type_mission_id.type_miss == 'Exterieur' or \
+                    record.mission_id.type_mission_id.type_miss == 'exterieur' or \
+                    record.mission_id.type_mission_id.type_miss == 'extérieure' or \
+                    record.mission_id.type_mission_id.type_miss == 'Extérieure' or \
+                    record.mission_id.type_mission_id.type_miss == 'externe' or \
+                    record.mission_id.type_mission_id.type_miss == 'Externe':
                 record.avance = (record.total * 4) / 5
                 # record.avance = (record.total * 2) / 3
             else:
