@@ -6,6 +6,7 @@
                 <field name="name">Equipe de Mission</field>
                 <field name="email_to">{{ object.get_rh() }}</field>
                 <field name="subject">Equipe de mission {{object.name or ''}}</field>
+                <field name="report_name">Equipe de mission {{object.name or ''}}</field>
                 <field name="model_id" ref="mission.model_mission_delegation"/>
                 <field name="report_template" ref="mission.report_mission_delegation_equipe"/>
                 <field name="auto_delete" eval="True"/>
@@ -26,6 +27,7 @@
             <field name="name">Etat Liquidatif</field>
             <field name="email_to">{{ object.get_daf() }}</field>
             <field name="subject">Etat Liquidatif n°{{object.name or ''}}</field>
+            <field name="report_name">Etat Liquidatif n°{{object.name or ''}}</field>
             <field name="model_id" ref="mission.model_mission_delegation"/>
             <field name="report_template" ref="mission.report_mission_delegation"/>
             <field name="auto_delete" eval="True"/>
