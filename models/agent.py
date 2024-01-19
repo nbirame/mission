@@ -9,6 +9,7 @@ class Agent(models.Model):
     equipe_is = fields.One2many("mission.equipe", "employee_id", string="Equipe")
     state = fields.Selection([
         ('en_mission', 'en_mission'),
+        ('mission_programmer', 'mission_programmer'),
         ('disponible', 'disponile')
     ], "Etat", default="disponible")
     number_mission_participation = fields.Integer(string="Nombre de Deplacement", compute="_compute_number_mission_participation", store=True)

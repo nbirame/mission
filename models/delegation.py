@@ -74,7 +74,7 @@ class Delegation(models.Model):
                         mission.date_depart <= record.date_retour < mission.date_retour) or (
                         record.date_depart <= mission.date_depart < record.date_retour)):
                     if mission.chef.id == record.chef.id:
-                        if mission.chef.state == "en_mission":
+                        if mission.chef.state == "en_mission" or mission.chef.state == "mission_programmer":
                             raise ValidationError(_("Le chef de mission doit être en mission pendant cette période"))
 
     @api.depends("lieu_arrive")
@@ -266,6 +266,9 @@ class Delegation(models.Model):
     # action du workflow pour une mission en brouillon
     def action_programmer(self):
         self.write({'state': 'programmer'})
+        for employee in self.equipe_id:
+            employee.employee_id.write({'state': "mission_programmer"})
+        self.chef.write({'state': "mission_programmer"})
 
     # action du workflow pour une mission en confirmer
     def action_confirmer(self):
