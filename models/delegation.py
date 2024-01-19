@@ -91,7 +91,7 @@ class Delegation(models.Model):
                     record.type_mission_id.type_miss == 'Intérieure' or \
                     record.type_mission_id.type_miss == 'intérieure' or \
                     record.type_mission_id.type_miss == 'interne' or record.type_mission_id.type_miss == 'Interne':
-                record.zone_id = ''
+                record.zone_id = False
 
     @api.onchange("distance")
     def _onchange_carburant(self):
