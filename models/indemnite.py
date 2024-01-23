@@ -10,6 +10,10 @@ class Indemnite(models.Model):
     type_mission_id = fields.Many2one("mission.type_mission", string="Type de Mission")
     zone_id = fields.Many2one("mission.zone", string="Zone de Mission")
 
+    _sql_constraints = [
+        ('name_uniq', 'unique (missionnaire_id, type_mission_id, zone_id, montant)', 'Cet indemnité existe déjà')
+    ]
+
     def name_get(self):
         indemnite = []
         for record in self:

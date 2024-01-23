@@ -40,6 +40,17 @@
                             <field name="type_miss"/>
                         </group>
                     </group>
+                     <notebook>
+                      <page name="page_lines" string="INDEMNITÉ">
+                         <field name="indemnite_ids">
+                                 <tree string="La liste des indemnités de mission" editable="bottom">
+                                        <field name="missionnaire_id"/>
+                                        <field name="zone_id"/>
+                                        <field name="montant"/>
+                                    </tree>
+                         </field>
+                      </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
