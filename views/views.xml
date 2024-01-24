@@ -142,7 +142,7 @@
                                     </tree>
                          </field>
                       </page>
-                      <page name="page_lines" string="VEHICULES DE LA MISSION" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}">
+                      <page name="page_lines" string="VEHICULES DE LA MISSION" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}" groups="mission.group_mission_admin">
                         <field name="vehicule_id" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}">
                             <tree string="La liste des véhicule de mission" editable="bottom">
                                  <field name="voiture_id" domain="[('state', '=', 'disponible')]"/>
@@ -150,7 +150,7 @@
                             </tree>
                         </field>
                       </page>
-                      <page name="page_lines" string="Carburant" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}">
+                      <page name="page_lines" string="Carburant" attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')]}" groups="mission.group_mission_admin">
                         <group name="group_top" col="4">
                           <field name="source" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
                            <field name="nombre_ticket" attrs="{'invisible': [('source', '=', 'Cart')]}"/>
