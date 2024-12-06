@@ -4,6 +4,7 @@
     <!--Email template -->
         <record id="email_template_equipe_mission" model="mail.template">
                 <field name="name">Equipe de Mission</field>
+                <field name="email_from">fongip@fongip.sn</field>
                 <field name="email_to">{{ object.get_rh() }}</field>
                 <field name="subject">Equipe de mission {{object.name or ''}}</field>
                 <field name="report_name">Equipe de mission {{object.name or ''}}</field>
@@ -25,6 +26,7 @@
         </record>
          <record id="etat_liquidatif_mission" model="mail.template">
             <field name="name">Etat Liquidatif</field>
+             <field name="email_from">fongip@fongip.sn</field>
             <field name="email_to">{{ object.get_daf() }}</field>
             <field name="subject">Etat Liquidatif n°{{object.name or ''}}</field>
             <field name="report_name">Etat Liquidatif n°{{object.name or ''}}</field>
