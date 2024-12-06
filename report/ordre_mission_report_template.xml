@@ -87,7 +87,7 @@
                             <span style="font-size: 19px; font-weight: 600;"> Prise en charge :</span>
                             <span style="font-size: 15px; font-weight: 500;"  t-esc="o.prise_en_charge"/>
                         </p>
-                        <p><span  style="font-size: 19px; font-weight: 600px;">Chapitre / article d'imputation budgétaire : 622630</span> </p><br/><br/>
+                        <p><span  style="font-size: 19px; font-weight: 600px;">Chapitre / article d'imputation budgétaire : 622600</span> </p><br/><br/>
 
                         <p class="text-right" style="font-size: 15px; font-weight: 500px;">
                             Fait à Dakar, le <span  t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
