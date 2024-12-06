@@ -26,26 +26,26 @@
                     </div>-->
                     <h3 style="text-align:center;color:#5d1914;margin-top:0px; font-size: 30px; font-weight: bold;">Ordre de Mission</h3><br/><br/><br/>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;"> Nom :</span>
-                        <span style="font-size: 18px; font-weight: 500px;" t-esc="o.employee_id.name.split(' ')[-1]"/>
+                        <span style="font-size: 19px; font-weight: 600;"> Nom :</span>
+                        <span style="font-size: 18px; font-weight: 500;" t-esc="o.employee_id.name.split(' ')[-1]"/>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px; "> Prénom :</span>
+                        <span style="font-size: 19px; font-weight: 600; "> Prénom :</span>
                         <t t-foreach="o.employee_id.name.split(' ')[:-1]" t-as="prenom">
-                            <span style="font-size: 18px; font-weight: 500px;" t-out="prenom"/>
+                            <span style="font-size: 18px; font-weight: 500;" t-out="prenom"/>
                         </t>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;">Fonction :</span>
-                        <span style="font-size: 18px; font-weight: 500px;"  t-field="o.employee_id.job_title"/>
+                        <span style="font-size: 19px; font-weight: 600;">Fonction :</span>
+                        <span style="font-size: 18px; font-weight: 500;"  t-field="o.employee_id.job_title"/>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;">Trajet :</span>
-                        <span t-esc="o.mission_id.trajet" style="font-size: 18px; font-weight: 500px;"/>
+                        <span style="font-size: 19px; font-weight: 600;">Trajet :</span>
+                        <span t-esc="o.mission_id.trajet" style="font-size: 18px; font-weight: 500;"/>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;">Motifs de la mission :</span><br/><br/>
-                        <span style="font-size: 18px; font-weight: 500px;">Cette mission à objective :</span><br/>
+                        <span style="font-size: 19px; font-weight: 600;">Motifs de la mission :</span><br/><br/>
+                        <span style="font-size: 18px; font-weight: 500;">Cette mission à objective :</span><br/>
                         <ul>
                             <t t-foreach="o.mission_id.motif.split('.')" t-as="motif">
                                 <li class="mb-3">
@@ -55,37 +55,37 @@
                         </ul>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;">Date de départ :</span>
-                        <span t-esc="o.mission_id.date_depart" t-options='{"widget": "date","format": "dd/MM/yyyy"}' style="font-size: 18px; font-weight: 500px;"/>
+                        <span style="font-size: 19px; font-weight: 600;">Date de départ :</span>
+                        <span t-esc="o.mission_id.date_depart" t-options='{"widget": "date","format": "dd/MM/yyyy"}' style="font-size: 18px; font-weight: 500;"/>
                     </p>
                     <p class="mb-3">
-                       <span style="font-size: 19px; font-weight: 600px;">Date de retour :</span>
-                        <span t-esc="o.mission_id.date_retour" t-options='{"widget": "date","format": "dd/MM/yyyy"}' style="font-size: 18px; font-weight: 500px;"/>
+                       <span style="font-size: 19px; font-weight: 600;">Date de retour :</span>
+                        <span t-esc="o.mission_id.date_retour" t-options='{"widget": "date","format": "dd/MM/yyyy"}' style="font-size: 18px; font-weight: 500;"/>
                     </p>
                     <p class="mb-3">
-                        <span style="font-size: 19px; font-weight: 600px;"> Durée :</span>
-                        <span  t-esc="o.mission_id.duree" style="font-size: 18px; font-weight: 500px;"/> jours
-                        (<span t-esc="o.mission_id.nb_nuit" style="font-size: 18px; font-weight: 500px;"/> nuitée)
+                        <span style="font-size: 19px; font-weight: 600;"> Durée :</span>
+                        <span  t-esc="o.mission_id.duree" style="font-size: 18px; font-weight: 500;"/> jours
+                        (<span t-esc="o.mission_id.nb_nuit" style="font-size: 18px; font-weight: 500;"/> nuitée)
                     </p>
 
                         <div class="mb-3">
                             <p t-if="o.mission_id.moyen_transport == 'Voiture'">
-                               <span style="font-size: 19px; font-weight: 600px;"> Moyen de Transport :</span>
-                                <span style="font-size: 18px; font-weight: 500px;">  Véhicule de Mission </span>
+                               <span style="font-size: 19px; font-weight: 600;"> Moyen de Transport :</span>
+                                <span style="font-size: 18px; font-weight: 500;">  Véhicule de Mission </span>
                                 <t t-foreach="o.mission_id.vehicule_id" t-as="vehicle">
                                     <t t-foreach="vehicle.voiture_id.name.split('/')" t-as="vehicle">
-                                        <span class="mb-3" t-out="vehicle" style="font-size: 18px; font-weight: 500px;"/>
+                                        <span class="mb-3" t-out="vehicle" style="font-size: 18px; font-weight: 500;"/>
                                     </t>
                                 </t>
                             </p>
                             <p t-else="" class="mb-3">
-                               <span style="font-size: 19px; font-weight: 600px;"> Moyen de Transport :</span>
-                                    <span style="font-size: 18px; font-weight: 500px;"  t-field="o.mission_id.moyen_transport"/>
+                               <span style="font-size: 19px; font-weight: 600;"> Moyen de Transport :</span>
+                                    <span style="font-size: 18px; font-weight: 500;"  t-field="o.mission_id.moyen_transport"/>
                             </p>
                         </div>
                         <p class="mb-3">
-                            <span style="font-size: 19px; font-weight: 600px;"> Prise en charge :</span>
-                            <span style="font-size: 18px; font-weight: 500px;"  t-esc="o.prise_en_charge"/>
+                            <span style="font-size: 19px; font-weight: 600;"> Prise en charge :</span>
+                            <span style="font-size: 18px; font-weight: 500;"  t-esc="o.prise_en_charge"/>
                         </p>
                         <p><span  style="font-size: 19px; font-weight: 600px;">Chapitre / article d'imputation budgétaire : 622630</span> </p><br/><br/>
 
