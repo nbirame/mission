@@ -7,7 +7,7 @@
             <t t-call="web.external_layout">
                 <img src="/mission/static/src/img/fon.jpeg" alt="Logo" class="w-110 h-5"/>
                 <div class="page">
-                    <h1 style="text-align:center;color:#800000;margin-top:50px;">Ordre de Mission</h1><br/><br/>
+                    <h1 style="text-align:center;color:#5d1914;margin-top:5px;">Ordre de Mission</h1>
                     <div t-foreach="o.equipe_id" t-as="agent">
                         <p>
                          <span class="ordre_text">  Nom :</span>
@@ -30,7 +30,8 @@
                             <span t-esc="o.trajet" class="font-weight-bold"/>
                         </p><br/>
                         <p>
-                            <span class="ordre_text">Motifs :</span>
+                            <span class="ordre_text">Motifs de la mission :</span>
+                            <span class="font-weight-bold">Cette mission à objective :</span>
                             <span t-esc="o.motif" class="font-weight-bold"/>
                         </p><br/>
                         <p>
@@ -44,7 +45,7 @@
                         <p>
                             <span class="ordre_text"> Durée :</span>
                             <span  t-esc="o.duree" class="font-weight-bold"/> jours
-                            <span t-esc="o.nb_nuit" class="font-weight-bold"/> (nuitée)
+                            (<span t-esc="o.nb_nuit" class="font-weight-bold"/> nuitée)
                         </p><br/>
                         <div>
                             <p t-if="o.moyen_transport == 'Voiture'">
@@ -65,13 +66,15 @@
                         <p>
                             <span class="ordre_text"> Prise en charge :</span>
                             <span t-esc="agent.prise_en_charge" class="font-weight-bold"/>
-                        </p><br/><br/>
+                        </p><br/>
+                        <p><span  class="ordre_text">Chapitre / article d'imputation budgétaire :</span> <span class="ordre_text"   >622630</span> </p>
+                        <br/>
                     </div>
                     <p class="text-right">
                         Fait à Dakar, le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
                     </p>
                     <h6 class="text-right">
-                        LE SECRETAIRE GENERAL
+                        Le Secrétaire Général
                     </h6>
                 </div>
             </t>
