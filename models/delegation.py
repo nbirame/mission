@@ -5,6 +5,7 @@ from datetime import datetime, date
 from odoo.exceptions import ValidationError
 from math import ceil
 from num2words import num2words
+import calendar
 
 
 class Delegation(models.Model):
@@ -414,3 +415,14 @@ class Delegation(models.Model):
         budgets = self.env['mission.budget'].sudo().search([])
         # for budget in budgets:
         return budgets[-1].name
+
+    def get_month_start(self):
+        today = datetime.date.today()
+        start_of_month = today.replace(day=1)
+        return start_of_month
+
+    def get_month_end(self):
+        today = datetime.date.today()
+        days_in_month = calendar.monthrange(today.year, today.month)[1]
+        end_of_month = today.replace(day=days_in_month)
+        return end_of_month

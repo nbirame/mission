@@ -45,8 +45,6 @@ class Equipe(models.Model):
                             ('type_mission_id', '=', record.mission_id.type_mission_id.id)
                         ], limit=1)
                     record.indemnite = indemnite.montant
-            else:
-                record.indemnite = 0
 
     @api.depends("employee_id")
     def _compute_poste(self):
@@ -59,8 +57,6 @@ class Equipe(models.Model):
         for record in self:
             if record.prise_en_charge != "Carburant":
                 record.total = record.mission_id.nb_nuit * record.indemnite
-            else:
-                record.total = 0
 
     # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
     # Pour une mission externe est l'avance est de 3/4 et les 1/4 restant payé au retour
@@ -83,8 +79,6 @@ class Equipe(models.Model):
         for record in self:
             if record.prise_en_charge != "Carburant":
                 record.restant = record.total - record.avance
-            else:
-                record.restant = 0
 
     # methode qui permet d'imprimer le report de l'equipe de mission
     def report_print(self):
