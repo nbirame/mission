@@ -59,10 +59,12 @@ class Equipe(models.Model):
         for record in self:
             if record.prise_en_charge != "Carburant":
                 record.total = record.mission_id.nb_nuit * record.indemnite
+            else:
+                record.total = 0
 
     # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
     # Pour une mission externe est l'avance est de 3/4 et les 1/4 restant payé au retour
-    @api.onchange("total", "mission_id")
+    @api.onchange("total", "mission_id", "prise_en_charge")
     def _onchange_avance(self):
         for record in self:
             if record.mission_id.type_mission_id.type_miss == 'Exterieur' or \
@@ -76,11 +78,13 @@ class Equipe(models.Model):
             else:
                 record.avance = (record.total * 2) / 3
 
-    @api.onchange('total', "type_missionnaire_id")
+    @api.onchange('total', "type_missionnaire_id", "prise_en_charge")
     def _onchange_restant(self):
         for record in self:
-            # if record.mission_id.nb_nuit or record.mission_id.type_mission_id.indemnite:
-            record.restant = record.total - record.avance
+            if record.prise_en_charge != "Carburant":
+                record.restant = record.total - record.avance
+            else:
+                record.restant = 0
 
     # methode qui permet d'imprimer le report de l'equipe de mission
     def report_print(self):
