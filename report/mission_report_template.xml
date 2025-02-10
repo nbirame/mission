@@ -77,7 +77,7 @@
             </table>
              <p>
                 Arrêté le présent état récapitulatif au montant de
-                <span t-set="sum_row2" t-value="o.convert_number_to_words(sum_row2+equipe.avance)" style="font-weight: bold;"/>(
+                <span t-set="sum_row2" t-value="sum_row2+equipe.avance" t-esc="o.convert_number_to_words(sum_row2)" style="font-weight: bold;"/>(
                 <span t-esc="'{:,}'.format(equipe.avance).replace(',', ' ')" style="font-weight: bold;"/>
                             <t t-set="sum_row2" t-value="sum_row2+equipe.avance"/> FCFA )
             </p>
