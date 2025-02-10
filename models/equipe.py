@@ -28,10 +28,10 @@ class Equipe(models.Model):
             eq.append((record.id, rec_name))
         return eq
 
-    @api.depends("mission_id", "type_missionnaire_id")
+    @api.depends("mission_id", "type_missionnaire_id", "prise_en_charge")
     def _compute_indemnite(self):
         for record in self:
-            if record.type_missionnaire_id:
+            if record.type_missionnaire_id and record.prise_en_charge != "Carburant":
                 indemnite = self.env['mission.indemnite'].sudo().search(
                     [('missionnaire_id', '=', record.type_missionnaire_id.id),
                      ('zone_id', '=', record.mission_id.zone_id.id),
