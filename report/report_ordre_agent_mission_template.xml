@@ -45,7 +45,7 @@
                         <p>
                             <span class="ordre_text"> Durée :</span>
                             <span  t-esc="o.duree" class="font-weight-bold"/> jours
-                            (<span t-esc="o.nb_nuit" class="font-weight-bold"/> nuitée)
+                            (<span t-esc="o.nb_nuit" class="font-weight-bold"/> nuitées)
                         </p><br/>
                         <div>
                             <p t-if="o.moyen_transport == 'Voiture'">
@@ -67,7 +67,7 @@
                             <span class="ordre_text"> Prise en charge :</span>
                             <span t-esc="agent.prise_en_charge" class="font-weight-bold"/>
                         </p><br/>
-                        <p><span  class="ordre_text">Chapitre / article d'imputation budgétaire :</span> <span class="ordre_text"   >622630</span> </p>
+                        <p><span  class="ordre_text">Chapitre / article d'imputation budgétaire :</span> <span class="ordre_text"><span  t-esc="o.get_imputation_bugetaire()" class="font-weight-bold"/></span> </p>
                         <br/>
                     </div>
                     <p class="text-right">

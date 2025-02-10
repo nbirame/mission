@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mission_imputation_budget_action" model="ir.actions.act_window">
+        <field name="name">Imputation budgetaire</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mission.budget</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="mission_budget_tree" model="ir.ui.view">
+        <field name="name">mission.budget.tree</field>
+        <field name="model">mission.budget</field>
+        <field name="arch" type="xml">
+            <tree string="La liste des imputations budgétaire">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mission_budget_search" model="ir.ui.view">
+        <field name="model">mission.budget</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="mission_budget_form" model="ir.ui.view">
+        <field name="name">mission.budget.form</field>
+        <field name="model">mission.budget</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une imputations budgétaire">
+                <sheet>
+                  <div class="oe_title">
+                      <group name="group_top" col="4">
+                          <field name="name" />
+                      </group>
+                  </div>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        id="menu_budget_miss"
+        name="Imputation Bugétaire"
+        parent="mission.menu_conf_mission"
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
+        action="mission_imputation_budget_action"
+        sequence="10"/>
+
+</odoo>

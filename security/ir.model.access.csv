@@ -41,3 +41,4 @@ access_mission_suivi_essence_visiteur,mission.suivi_essence,model_mission_suivi_
 access_mission_suivi_essence_admin,mission.suivi_essence,model_mission_suivi_essence,mission.group_mission_admin,1,1,1,1
 access_mission_suivi_essence_compta,mission.suivi_essence,model_mission_suivi_essence,mission.group_mission_comptability,1,1,1,1
 access_mission_suivi_essence_mg,mission.suivi_essence,model_mission_suivi_essence,mission.group_mission_genereaux,1,0,0,0
+access_mission_budget_admin,mission.budget,model_mission_budget,mission.group_mission_admin,1,1,1,1

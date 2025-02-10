@@ -13,3 +13,4 @@ from . import agent
 from . import consommation
 from . import suivi_essence
 from . import odometre
+from . import budget

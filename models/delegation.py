@@ -405,3 +405,8 @@ class Delegation(models.Model):
 
     def get_daf(self):
         return self.get_manager('mission.group_mission_daf')
+
+    def get_imputation_bugetaire(self):
+        budgets = self.env['mission.budget'].sudo().search([])
+        # for budget in budgets:
+        return budgets[-1].name

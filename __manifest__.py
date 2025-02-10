@@ -38,7 +38,7 @@
         'views/vehicule_views.xml',
         'views/voiture_views.xml',
         'views/suivi_essence_view.xml',
-        # 'views/compagnie_view.xml',
+        'views/imputation_budget_view.xml',
         'views/odometre_view.xml',
         'data/sequence_mission.xml',
         'report/equippe_mission_report.xml',
