@@ -125,7 +125,11 @@ class Delegation(models.Model):
 
                 diff = date1 - date2
                 if int(diff.days) >= 0:
-                    record.duree = diff.days + 1
+                    nombre_jour = diff.days + 1
+                    if nombre_jour <= 10:
+                        record.duree = nombre_jour
+                    else:
+                        raise ValidationError(_("Le nombre de jours de mission ne doit pas depasser 10 jours"))
                 else:
                     record.duree = 0
                     # print(record.duree)
