@@ -30,18 +30,18 @@
 
 
 
-    <menuitem
+    <!--<menuitem
         name="Mission"
         id="menu_mission_root"/>
     <menuitem
         name="Parc Automobile"
         id="menu_mission_voiture"
         parent="menu_mission_root"
-        sequence="2"/>
+        sequence="2"/>-->
     <menuitem
         id="menu_odometre_voiture_de_mission"
         name="Odometre"
-        parent="menu_mission_voiture"
+        parent="fleet.fleet_vehicles"
         action="fleet.fleet_vehicle_odometer_action"
         groups="mission.group_mission_admin"
         sequence="3"/>

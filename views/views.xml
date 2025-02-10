@@ -182,7 +182,6 @@
 
     <menuitem
         name="Mission"
-        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_employee,mission.group_mission_daf"
         id="menu_mission_root"
         web_icon="mission,/static/description/icon.png"
     />
@@ -196,6 +195,7 @@
         name="Mission"
         parent="menu_mission"
         action="mission_delegation_action"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_employee,mission.group_mission_daf"
         sequence="1"/>
 
 </odoo>

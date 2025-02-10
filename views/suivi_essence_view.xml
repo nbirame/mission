@@ -77,14 +77,14 @@
     </record>
 
 
-     <menuitem
+     <!--<menuitem
         name="Mission"
         id="menu_mission_root"/>
     <menuitem
         name="Parc Automobile"
         id="menu_mission_voiture"
         parent="menu_mission_root"
-        sequence="2"/>
+        sequence="2"/>-->
     <menuitem
         id="menu_suivi_de_mission"
         name="Suivi du niveau d'essence"

@@ -52,7 +52,7 @@
 
 
 
-    <menuitem
+    <!--<menuitem
         name="Mission"
         groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
         id="menu_mission_root"/>
@@ -60,11 +60,11 @@
         name="Configuration"
         id="menu_conf_mission"
         parent="menu_mission_root"
-        sequence="2"/>
+        sequence="2"/>-->
     <menuitem
         id="menu_indemnite_miss"
         name="Indemnité"
-        parent="menu_conf_mission"
+        parent="mission.menu_conf_mission"
         action="mission_indemnite_action"
         groups="mission.group_mission_admin,mission.group_mission_visiteur"
         sequence="13"/>

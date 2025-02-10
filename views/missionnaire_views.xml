@@ -43,18 +43,18 @@
 
 
 
-    <menuitem
+    <!--<menuitem
         name="Mission"
         id="menu_mission_root"/>
      <menuitem
         name="Configuration"
         id="menu_conf_mission"
         parent="menu_mission_root"
-        sequence="2"/>
+        sequence="2"/>-->
     <menuitem
         id="menu_missionnaire_miss"
         name="Missionnaire"
-        parent="menu_conf_mission"
+        parent="mission.menu_conf_mission"
         groups="mission.group_mission_admin,mission.group_mission_visiteur"
         action="mission_missionnaire_action"
         sequence="9"/>
