@@ -13,8 +13,8 @@ class Equipe(models.Model):
     prise_en_charge = fields.Selection([
         ('Carburant', 'Carburant'), ('Perdieme', 'Perdieme'), ('Carburant/Perdieme', 'Carburant/Perdieme'),
     ], 'Prise en Charge', default="Carburant")
-    avance = fields.Integer(string="Montant avancé", compute="_compute_avance", store=True)
-    restant = fields.Integer(string="Montant restant", compute="_compute_restant", store=True)
+    avance = fields.Integer(string="Montant avancé", store=True)
+    restant = fields.Integer(string="Montant restant", store=True)
     total = fields.Integer(string="Montant Total", store=True)
     contrat = fields.Binary(string="Joindre OM signé")
     mission_id = fields.Many2one('mission.delegation', string="Mission")
@@ -62,8 +62,8 @@ class Equipe(models.Model):
 
     # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
     # Pour une mission externe est l'avance est de 3/4 et les 1/4 restant payé au retour
-    @api.depends("total", "mission_id")
-    def _compute_avance(self):
+    @api.onchange("total", "mission_id")
+    def _onchange_avance(self):
         for record in self:
             if record.mission_id.type_mission_id.type_miss == 'Exterieur' or \
                     record.mission_id.type_mission_id.type_miss == 'exterieur' or \
@@ -76,8 +76,8 @@ class Equipe(models.Model):
             else:
                 record.avance = (record.total * 2) / 3
 
-    @api.depends('total', "type_missionnaire_id")
-    def _compute_restant(self):
+    @api.onchange('total', "type_missionnaire_id")
+    def _onchange_restant(self):
         for record in self:
             # if record.mission_id.nb_nuit or record.mission_id.type_mission_id.indemnite:
             record.restant = record.total - record.avance
@@ -91,5 +91,4 @@ class Equipe(models.Model):
         mission = self.env['mission.equipe'].sudo().search([('mission_id', '=', self.mission_id.id)])
         for avance in mission:
             somme.append(avance.avance)
-        print(somme)
         return somme
