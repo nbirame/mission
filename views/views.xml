@@ -131,11 +131,11 @@
                                         <field name="employee_id" domain="[('state', '=', 'disponible')]"/>
                                         <field name="poste"/>
                                         <field name="type_missionnaire_id"/>
-                                        <field name="indemnite" readonly="1"/>
+                                        <field name="indemnite"/>
                                         <field name="prise_en_charge"/>
-                                        <field name="avance" readonly="1"/>
-                                        <field name="restant" readonly="1"/>
-                                        <field name="total" readonly="1"/>
+                                        <field name="avance"/>
+                                        <field name="restant"/>
+                                        <field name="total"/>
                                         <field name="ordre_mission" filename="ordre_mission_name" invisible="0"/>
                                         <field name="ordre_mission_name" invisible="1"/>
                                         <button name="report_print" string="Imprimer odre de mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
