@@ -70,7 +70,7 @@
         id="menu_type_miss"
         name="Type"
         parent="menu_conf_mission"
-        groups="mission.group_mission_genereaux,mission.group_mission_visiteur"
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
         action="mission_type_action"
         sequence="4"/>
 

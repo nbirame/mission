@@ -55,7 +55,7 @@
         id="menu_missionnaire_miss"
         name="Missionnaire"
         parent="menu_conf_mission"
-        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
         action="mission_missionnaire_action"
         sequence="9"/>
 

@@ -77,8 +77,9 @@
             </table>
              <p>
                 Arrêté le présent état récapitulatif au montant de
-                <span t-esc="o.convert_number_to_words(o.total_perdieme)" style="font-weight: bold;"/>(
-                <span t-esc="'{:,}'.format(o.total_perdieme).replace(',', ' ')" style="font-weight: bold;"/> FCFA )
+                <span t-esc="o.convert_number_to_words(equipe.avance)" style="font-weight: bold;"/>(
+                <span t-esc="'{:,}'.format(equipe.avance).replace(',', ' ')" style="font-weight: bold;"/>
+                            <t t-set="sum_row2" t-value="sum_row2+equipe.avance"/> FCFA )
             </p>
             <p class="text-left">
                 <span class="text-left">

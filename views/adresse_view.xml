@@ -60,7 +60,7 @@
         name="Adresse"
         parent="menu_conf_mission"
         action="mission_adresse_action"
-        groups="mission.group_mission_genereaux,mission.group_mission_visiteur"
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
         sequence="4"/>
 
 </odoo>
