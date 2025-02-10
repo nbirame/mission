@@ -94,7 +94,7 @@
                 <sheet>
                       <group name="group_top" string="Ordre de mission"  col="4" >
                           <field name="name" />
-                          <field name="chef" attrs="{'readonly':[('state', '!=', 'programmer')]}" domain="[('state', '=', 'disponible')]" widget="label_selection"/>
+                          <field name="chef" attrs="{'readonly':[('state', '!=', 'programmer')]}" domain="[('state', '=', 'disponible')]"/>
                           <field name="zone_id" attrs="{'invisible': [('type_mission_id', '==', 4)], 'readonly':[('state', '!=', 'programmer')]}"/>
                           <field name="type_mission_id" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
                           <field name="motif" attrs="{'readonly':[('state', '!=', 'programmer')]}"/>
