@@ -8,7 +8,7 @@ class Equipe(models.Model):
     employee_id = fields.Many2one("hr.employee", required=True, string="Employée")
     poste = fields.Char(string="Titre poste", compute="_compute_poste", store=True)
     type_missionnaire_id = fields.Many2one("mission.missionnaire", string="Type de Missionnaire", required=True)
-    indemnite = fields.Integer(string="Indemnité journalière", compute="_compute_indemnite", store=True)
+    indemnite = fields.Integer(string="Indemnité journalière", store=True)
     # indemnite_id = fields.Many2one("mission.indemnite", string="Indemnité journalière")
     prise_en_charge = fields.Selection([
         ('Carburant', 'Carburant'), ('Perdieme', 'Perdieme'), ('Carburant/Perdieme', 'Carburant/Perdieme'),
@@ -28,8 +28,8 @@ class Equipe(models.Model):
             eq.append((record.id, rec_name))
         return eq
 
-    @api.depends("mission_id", "type_missionnaire_id", "prise_en_charge")
-    def _compute_indemnite(self):
+    @api.onchange("mission_id", "type_missionnaire_id", "prise_en_charge")
+    def _onchange_indemnite(self):
         for record in self:
             if record.type_missionnaire_id and record.prise_en_charge != "Carburant":
                 indemnite = self.env['mission.indemnite'].sudo().search(
