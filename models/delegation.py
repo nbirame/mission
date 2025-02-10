@@ -386,8 +386,8 @@ class Delegation(models.Model):
                 status_mission.state = "terminer"
         return True
 
-    def convert_number_to_words(self, total):
-        number_text = num2words(self.total_perdieme, lang="fr")
+    def convert_number_to_words(self, avance):
+        number_text = num2words(avance, lang="fr")
         return number_text
 
     def get_manager(self, groupe):
