@@ -45,6 +45,8 @@ class Equipe(models.Model):
                             ('type_mission_id', '=', record.mission_id.type_mission_id.id)
                         ], limit=1)
                     record.indemnite = indemnite.montant
+            else:
+                record.indemnite = 0
 
     @api.depends("employee_id")
     def _compute_poste(self):
