@@ -15,7 +15,7 @@ class Equipe(models.Model):
     ], 'Prise en Charge', default="Carburant")
     avance = fields.Integer(string="Montant avancé", compute="_compute_avance", store=True)
     restant = fields.Integer(string="Montant restant", compute="_compute_restant", store=True)
-    total = fields.Integer(string="Montant Total", compute="_compute_total", store=True)
+    total = fields.Integer(string="Montant Total", store=True)
     contrat = fields.Binary(string="Joindre OM signé")
     mission_id = fields.Many2one('mission.delegation', string="Mission")
     ordre_mission = fields.Binary(string="Ordre de la Mission", store=True)
@@ -52,10 +52,11 @@ class Equipe(models.Model):
             record.poste = record.employee_id.job_title
 
     # Le montant total de l'indemnité est calculer en fonction du nombre de nuité et de l'indemnité journalière
-    @api.depends("mission_id", "type_missionnaire_id")
-    def _compute_total(self):
+    @api.onchange("mission_id", "type_missionnaire_id", "prise_en_charge")
+    def _onchange_total(self):
         for record in self:
-            record.total = record.mission_id.nb_nuit * record.indemnite
+            if record.prise_en_charge != "Carburant":
+                record.total = record.mission_id.nb_nuit * record.indemnite
 
     # Pour une mission interne est l'avance est de 2/3 et les 1/3 restant payé au retour
     # Pour une mission externe est l'avance est de 3/4 et les 1/4 restant payé au retour
