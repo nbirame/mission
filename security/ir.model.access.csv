@@ -19,7 +19,7 @@ access_mission_equipe_visiteur,mission.equipe,model_mission_equipe,mission.group
 access_mission_equipe_genereaux,mission.equipe,model_mission_equipe,mission.group_mission_genereaux,1,1,1,1
 access_mission_equipe_compta,mission.equipe,model_mission_equipe,mission.group_mission_comptability,1,0,0,0
 access_mission_equipe_admin,mission.equipe,model_mission_equipe,mission.group_mission_admin,1,1,1,1
-access_mission_missionnaire_genereaux,mission.missionnaire,model_mission_missionnaire,mission.group_mission_genereaux,1,1,1,1
+access_mission_missionnaire_genereaux,mission.missionnaire,model_mission_missionnaire,mission.group_mission_genereaux,1,0,0,0
 access_mission_missionnaire_daf,mission.missionnaire,model_mission_missionnaire,mission.group_mission_daf,1,1,1,1
 access_mission_missionnaire_admin,mission.missionnaire,model_mission_missionnaire,mission.group_mission_admin,1,1,1,1
 access_mission_missionnaire_visiteur,mission.missionnaire,model_mission_missionnaire,mission.group_mission_visiteur,1,0,0,0
@@ -29,7 +29,7 @@ access_mission_delegation_employee,mission.delegation,model_mission_delegation,m
 access_mission_delegation_compta,mission.delegation,model_mission_delegation,mission.group_mission_comptability,1,0,0,0
 access_mission_delegation_genereaux,mission.delegation,model_mission_delegation,mission.group_mission_genereaux,1,1,1,1
 access_mission_delegation_admin,mission.delegation,model_mission_delegation,mission.group_mission_admin,1,1,1,1
-access_mission_indemnite_genereaux,mission.indemnite,model_mission_indemnite,mission.group_mission_genereaux,1,1,1,1
+access_mission_indemnite_genereaux,mission.indemnite,model_mission_indemnite,mission.group_mission_genereaux,1,0,0,0
 access_mission_indemnite_admin,mission.indemnite,model_mission_indemnite,mission.group_mission_admin,1,1,1,1
 access_mission_indemnite_employee,mission.indemnite,model_mission_indemnite,mission.group_mission_employee,1,0,0,0
 access_mission_indemnite_visiteur,mission.indemnite,model_mission_indemnite,mission.group_mission_visiteur,1,0,0,0

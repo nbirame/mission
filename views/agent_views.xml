@@ -19,7 +19,7 @@
         </record>
     </data>
 
-<menuitem
+<!--<menuitem
         name="Mission"
         id="menu_mission_root"/>
 
@@ -27,12 +27,13 @@
         name="Configuration"
         id="menu_conf_mission"
         parent="menu_mission_root"
-        sequence="2"/>
+        groups="mission.group_mission_admin,mission.group_mission_visiteur"
+        sequence="2"/>-->
     <menuitem
         id="menu_mission_agent"
         name="Employée"
-        parent="menu_conf_mission"
-        groups="mission.group_mission_rh"
+        parent="mission.menu_conf_mission"
+        groups="mission.group_mission_rh,mission.group_mission_admin,mission.group_mission_visiteur"
         action="hr.open_view_employee_list_my"
         sequence="2"/>
 </odoo>
