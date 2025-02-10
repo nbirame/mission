@@ -131,7 +131,7 @@
                                         <field name="employee_id" domain="[('state', '=', 'disponible')]"/>
                                         <field name="poste"/>
                                         <field name="type_missionnaire_id"/>
-                                        <field name="indemnite"/>
+                                        <field name="indemnite" readonly="1"/>
                                         <field name="prise_en_charge"/>
                                         <field name="avance"/>
                                         <field name="restant"/>
