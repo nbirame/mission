@@ -96,3 +96,8 @@ class Equipe(models.Model):
         for avance in mission:
             somme.append(avance.avance)
         return somme
+
+    def get_imputation_bugetaire(self):
+        budgets = self.env['mission.budget'].sudo().search([])
+        # for budget in budgets:
+        return budgets[-1].name
