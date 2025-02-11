@@ -89,8 +89,8 @@ class Delegation(models.Model):
             # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
             month_missions = self.env['mission.delegation'].sudo().search([
                 ('id', '!=', mission.id),
-                ('date_depart', '>=', mission.get_month_start()),
-                ('date_retour', '<=', mission.get_month_end()),
+                ('date_depart', '<=', mission.get_month_end()),
+                ('date_retour', '>=', mission.get_month_start()),
             ])
 
             # Parcourir chaque membre de l'équipe
