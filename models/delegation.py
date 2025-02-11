@@ -81,13 +81,9 @@ class Delegation(models.Model):
     @api.constrains('equipe_id', 'date_depart', 'date_retour')
     def _check_equipe_id(self):
         for mission in self:
-            # Vérifie que les dates sont bien renseignées
-            if not mission.date_depart or not mission.date_retour:
-                continue
-
             # Calcul du nombre de jours de la nouvelle mission
             new_mission_days = (mission.date_retour - mission.date_depart).days + 1
-            if new_mission_days < 0:
+            if new_mission_days > 0:
                 raise ValidationError(_("La date de retour doit être supérieure ou égale à la date de départ."))
 
             # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
