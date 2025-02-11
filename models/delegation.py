@@ -432,7 +432,7 @@ class Delegation(models.Model):
         return today.replace(day=last_day)
 
     @api.constrains('date_depart', 'date_retour', 'equipe_id')
-    def _check_mission_days_per_member(self):
+    def _check_equipe_id(self):
         for mission in self:
             # Vérifie que les dates sont bien renseignées
             if not mission.date_depart or not mission.date_retour:
