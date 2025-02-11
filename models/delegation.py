@@ -95,10 +95,9 @@ class Delegation(models.Model):
             ])
             for month_mission in month_missions:
                 for membre in mission.equipe_id:
-                    if month_mission.id == membre.mission_id:
+                    if month_mission.id == membre.mission_id.id:
                         nombre_jour += membre.mission_id.duree
-                    else:
-                        nombre_jour = 11111
+
                 if nombre_jour:
                     raise ValidationError(_(
                         "Le membre %(membre)s dépasse le quota de 10 %(nombre)s jours de mission pour ce mois.",
