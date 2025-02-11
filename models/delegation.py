@@ -136,8 +136,8 @@ class Delegation(models.Model):
                 # 5) Vérification finale : si la somme existante + la nouvelle mission > 10
                 if total_days_for_membre + new_mission_days > 10:
                     raise ValidationError(_(
-                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois.",
-                        membre=membre.employee_id.name  # ou un autre champ, ex.: membre.employee_id.display_name
+                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois. %(nombre)s",
+                        membre=membre.employee_id.name, nombre=total_days_for_membre  # ou un autre champ, ex.: membre.employee_id.display_name
                     ))
 
     @api.depends("lieu_arrive")
