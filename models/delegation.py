@@ -102,12 +102,12 @@ class Delegation(models.Model):
                 if nombre_jour:
                     raise ValidationError(_(
                         "Le membre %(membre)s dépasse le quota de 10 %(nombre)s jours de mission pour ce mois.",
-                        membre=membre.employee_id.name, nombre=total_days_for_membre
+                        membre=membre.employee_id.name, nombre=nombre_jour
                     ))
                 else:
                     raise ValidationError(_(
                         "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois %(mission)s. %(nombre)s:",
-                        membre=membre.employee_id.name, mission=membre.mission_id.date_retour, nombre=total_days_for_membre
+                        membre=membre.employee_id.name, mission=membre.mission_id.date_retour, nombre=nombre_jour
                     ))
                 # # Vérification : si le total existant + la nouvelle mission > 10
                 # if total_days_for_membre + new_mission_days > 10:
