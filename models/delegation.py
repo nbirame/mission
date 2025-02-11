@@ -105,11 +105,6 @@ class Delegation(models.Model):
             new_mission_days = 0
             if mission.date_depart and mission.date_retour:
                 new_mission_days = (mission.date_retour - mission.date_depart).days + 1
-
-            # 3) Récupération des autres missions qui se chevauchent dans le mois
-            #    On prend les missions dont l'intervalle [date_depart, date_retour]
-            #    intersecte l'intervalle du mois courant [get_month_start, get_month_end].
-            #    De plus, on exclut la mission en cours (id != mission.id).
             month_missions = self.env['mission.delegation'].sudo().search([
                 ('id', '!=', mission.id),
                 ('date_depart', '<=', mission.get_month_end()),
@@ -136,7 +131,7 @@ class Delegation(models.Model):
                 # 5) Vérification finale : si la somme existante + la nouvelle mission > 10
                 if total_days_for_membre + new_mission_days > 10:
                     raise ValidationError(_(
-                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois. %(nombre)s",
+                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois. Il a déjà fait %(nombre)s jours",
                         membre=membre.employee_id.name, nombre=total_days_for_membre  # ou un autre champ, ex.: membre.employee_id.display_name
                     ))
 
@@ -342,6 +337,7 @@ class Delegation(models.Model):
         self.write({'state': 'confirmer'})
         self.action_send_email_etat_mission("email_template_equipe_mission")
         self.action_send_email_etat_mission("etat_liquidatif_mission")
+        self.action_send_email_etat_mission("etat_liquidatif_mission_compta")
         for employee in self.equipe_id:
             employee.employee_id.write({'state': "en_mission"})
         self.chef.write({'state': "en_mission"})
@@ -473,24 +469,12 @@ class Delegation(models.Model):
     def get_daf(self):
         return self.get_manager('mission.group_mission_daf')
 
+    def get_compta(self):
+        return self.get_manager('mission.group_mission_comptability')
+
     def get_imputation_bugetaire(self):
         budgets = self.env['mission.budget'].sudo().search([])
         # for budget in budgets:
         return budgets[-1].name
-
-    def get_month_start(self):
-        # Votre logique pour récupérer le 1er du mois
-        # Par exemple:
-        today = fields.Date.today()
-        return today.replace(day=1)
-
-    # Exemple de méthode existante qui renvoie la fin du mois
-    def get_month_end(self):
-        # Votre logique pour récupérer le dernier jour du mois
-        # Par exemple:
-        from calendar import monthrange
-        today = fields.Date.today()
-        last_day = monthrange(today.year, today.month)[1]
-        return today.replace(day=last_day)
 
 

@@ -18,7 +18,7 @@
                      <span t-out="object.date_retour or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}'></span><br/>
                      <p>Trouver les détails de l'equipe de la mission dans le fichier join</p><br/>
                             <p>
-                                Cordialement le Directeur des moyens généreaux
+                                Cordialement le Chef de Département des moyens généreaux
                             </p>
                     </div>
                         ]]>
@@ -40,7 +40,29 @@
                      <span t-out="object.date_depart or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}' ></span> au
                      <span t-out="object.date_retour or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}'></span><br/>
                      <p>Trouver les détails de l'equipe de la mission dans le fichier join</p><br/>
-                     <p>Cordialement le Directeur des moyens généreaux
+                     <p>Cordialement le Chef de Département des moyens généreaux
+                     </p>
+                </div>
+                ]]>
+            </field>
+         </record>
+         <record id="etat_liquidatif_mission_compta" model="mail.template">
+            <field name="name">Etat Liquidatif</field>
+             <field name="email_from">fongip@fongip.sn</field>
+            <field name="email_to">{{ object.get_compta() }}</field>
+            <field name="subject">Etat Liquidatif n°{{object.name or ''}}</field>
+            <field name="report_name">Etat Liquidatif n°{{object.name or ''}}</field>
+            <field name="model_id" ref="mission.model_mission_delegation"/>
+            <field name="report_template" ref="mission.report_mission_delegation"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+                <![CDATA[
+                <div>Bonjour DAF<br>
+                    Voici l'etat liquidatif de la mission du
+                     <span t-out="object.date_depart or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}' ></span> au
+                     <span t-out="object.date_retour or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}'></span><br/>
+                     <p>Trouver les détails de l'equipe de la mission dans le fichier join</p><br/>
+                     <p>Cordialement le Chef de Département des moyens généreaux
                      </p>
                 </div>
                 ]]>
