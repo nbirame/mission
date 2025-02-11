@@ -417,12 +417,57 @@ class Delegation(models.Model):
         return budgets[-1].name
 
     def get_month_start(self):
-        today = datetime.date.today()
-        start_of_month = today.replace(day=1)
-        return start_of_month
+        # Votre logique pour récupérer le 1er du mois
+        # Par exemple:
+        today = fields.Date.today()
+        return today.replace(day=1)
 
+    # Exemple de méthode existante qui renvoie la fin du mois
     def get_month_end(self):
-        today = datetime.date.today()
-        days_in_month = calendar.monthrange(today.year, today.month)[1]
-        end_of_month = today.replace(day=days_in_month)
-        return end_of_month
+        # Votre logique pour récupérer le dernier jour du mois
+        # Par exemple:
+        from calendar import monthrange
+        today = fields.Date.today()
+        last_day = monthrange(today.year, today.month)[1]
+        return today.replace(day=last_day)
+
+    @api.constrains('date_depart', 'date_retour', 'equipe_id')
+    def _check_mission_days_per_member(self):
+        for mission in self:
+            # Vérifie que les dates sont bien renseignées
+            if not mission.date_depart or not mission.date_retour:
+                continue
+
+            # Calcul du nombre de jours de la nouvelle mission
+            new_mission_days = (mission.date_retour - mission.date_depart).days + 1
+            if new_mission_days < 0:
+                raise ValidationError(_("La date de retour doit être supérieure ou égale à la date de départ."))
+
+            # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
+            month_missions = self.env['mission.delegation'].sudo().search([
+                ('id', '!=', mission.id),
+                ('date_depart', '>=', mission.get_month_start()),
+                ('date_retour', '<=', mission.get_month_end()),
+            ])
+
+            # Parcourir chaque membre de l'équipe
+            for membre in mission.equipe_id:
+                # Récupérer les missions du mois où ce membre apparaît
+                membre_missions = month_missions.filtered(
+                    lambda m: membre.id in m.equipe_ids.ids
+                )
+
+                # Calculer le total de jours déjà pris par ce membre sur le mois
+                total_days_for_membre = sum(
+                    (m.date_retour - m.date_depart).days + 1
+                    for m in membre_missions
+                )
+
+                # Vérification : si le total existant + la nouvelle mission > 10
+                if total_days_for_membre + new_mission_days > 10:
+                    raise ValidationError(_(
+                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois.",
+                        membre=membre.name
+                    ))
+
+
