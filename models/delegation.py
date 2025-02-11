@@ -83,7 +83,7 @@ class Delegation(models.Model):
         for mission in self:
             # Calcul du nombre de jours de la nouvelle mission
             new_mission_days = (mission.date_retour - mission.date_depart).days + 1
-            if new_mission_days > 0:
+            if new_mission_days < 0:
                 raise ValidationError(_("La date de retour doit être supérieure ou égale à la date de départ.Le nombre de jour %(nombre)s", nombre=new_mission_days))
 
             # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
