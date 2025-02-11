@@ -97,7 +97,7 @@ class Delegation(models.Model):
             for membre in mission.equipe_id:
                 equipes = self.env["mission.equipe"].search([('employee_id', '=', membre.id)])
                 for equipe in equipes:
-                    if equipe.mission_id in month_missions:
+                    if equipe.mission_id.id in month_missions:
                         nombre_jour += equipe.mission_id.duree
 
             if nombre_jour:
