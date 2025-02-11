@@ -97,7 +97,7 @@ class Delegation(models.Model):
             for membre in mission.equipe_id:
                 # Récupérer les missions du mois où ce membre apparaît
                 membre_missions = month_missions.filtered(
-                    lambda m: membre.id in m.equipe_id.ids
+                    lambda m: membre.id in m.equipe_id.id
                 )
 
                 # Calculer le total de jours déjà pris par ce membre sur le mois
