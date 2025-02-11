@@ -78,6 +78,44 @@ class Delegation(models.Model):
                         if mission.chef.state == "en_mission":
                             raise ValidationError(_("Le chef de mission doit être en mission pendant cette période"))
 
+    @api.constrains('equipe_id', 'date_depart', 'date_retour')
+    def _check_equipe_id(self):
+        for mission in self:
+            # Vérifie que les dates sont bien renseignées
+            if not mission.date_depart or not mission.date_retour:
+                continue
+
+            # Calcul du nombre de jours de la nouvelle mission
+            new_mission_days = (mission.date_retour - mission.date_depart).days + 1
+            if new_mission_days < 0:
+                raise ValidationError(_("La date de retour doit être supérieure ou égale à la date de départ."))
+
+            # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
+            month_missions = self.env['mission.delegation'].sudo().search([
+                ('id', '!=', mission.id),
+                ('date_depart', '>=', mission.get_month_start()),
+                ('date_retour', '<=', mission.get_month_end()),
+            ])
+
+            # Parcourir chaque membre de l'équipe
+            for membre in mission.equipe_id:
+                # Récupérer les missions du mois où ce membre apparaît
+                membre_missions = month_missions.filtered(
+                    lambda m: membre.id in m.equipe_id.ids
+                )
+
+                # Calculer le total de jours déjà pris par ce membre sur le mois
+                total_days_for_membre = sum(
+                    (m.date_retour - m.date_depart).days + 1
+                    for m in membre_missions
+                )
+                # Vérification : si le total existant + la nouvelle mission > 10
+                if total_days_for_membre + new_mission_days > 10:
+                    raise ValidationError(_(
+                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois.",
+                        membre=membre.name
+                    ))
+
     @api.depends("lieu_arrive")
     def _compute_distance(self):
         for record in self:
@@ -430,45 +468,5 @@ class Delegation(models.Model):
         today = fields.Date.today()
         last_day = monthrange(today.year, today.month)[1]
         return today.replace(day=last_day)
-
-    @api.constrains('date_depart', 'date_retour', 'equipe_id')
-    def _check_equipe_id(self):
-        for mission in self:
-            # Vérifie que les dates sont bien renseignées
-            if not mission.date_depart or not mission.date_retour:
-                continue
-
-            # Calcul du nombre de jours de la nouvelle mission
-            new_mission_days = (mission.date_retour - mission.date_depart).days + 1
-            if new_mission_days < 0:
-                raise ValidationError(_("La date de retour doit être supérieure ou égale à la date de départ."))
-
-            # Récupération de toutes les missions du mois (sauf la mission en cours d'édition)
-            month_missions = self.env['mission.delegation'].sudo().search([
-                ('id', '!=', mission.id),
-                ('date_depart', '>=', mission.get_month_start()),
-                ('date_retour', '<=', mission.get_month_end()),
-            ])
-
-            # Parcourir chaque membre de l'équipe
-            for membre in mission.equipe_id:
-                # Récupérer les missions du mois où ce membre apparaît
-                membre_missions = month_missions.filtered(
-                    lambda m: membre.id in m.equipe_id.ids
-                )
-
-                # Calculer le total de jours déjà pris par ce membre sur le mois
-                total_days_for_membre = sum(
-                    (m.date_retour - m.date_depart).days + 1
-                    for m in membre_missions
-                )
-                print(f"Le nombre de jour {total_days_for_membre}")
-
-                # Vérification : si le total existant + la nouvelle mission > 10
-                if total_days_for_membre + new_mission_days > 10:
-                    raise ValidationError(_(
-                        "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois.",
-                        membre=membre.name
-                    ))
 
 
