@@ -80,6 +80,7 @@ class Delegation(models.Model):
 
     @api.constrains('equipe_id', 'date_depart', 'date_retour')
     def _check_equipe_id(self):
+        nombre_jour = 0
         for mission in self:
             # Calcul du nombre de jours de la nouvelle mission
             new_mission_days = (mission.date_retour - mission.date_depart).days + 1
@@ -92,20 +93,11 @@ class Delegation(models.Model):
                 ('date_depart', '<=', mission.get_month_end()),
                 ('date_retour', '>=', mission.get_month_start()),
             ])
-
-            # Parcourir chaque membre de l'équipe
-            for membre in mission.equipe_id:
-                # Récupérer les missions du mois où ce membre apparaît
-                membre_missions = month_missions.filtered(
-                    lambda m: membre.id in m.equipe_id.id
-                )
-
-                # Calculer le total de jours déjà pris par ce membre sur le mois
-                total_days_for_membre = sum(
-                    (m.date_retour - m.date_depart).days + 1
-                    for m in membre_missions
-                )
-                if total_days_for_membre:
+            for month_mission in month_missions:
+                for membre in mission.equipe_id:
+                    if month_mission.id == membre.mission_id:
+                        nombre_jour += membre.mission_id.duree
+                if nombre_jour:
                     raise ValidationError(_(
                         "Le membre %(membre)s dépasse le quota de 10 %(nombre)s jours de mission pour ce mois.",
                         membre=membre.employee_id.name, nombre=total_days_for_membre
@@ -113,7 +105,7 @@ class Delegation(models.Model):
                 else:
                     raise ValidationError(_(
                         "Le membre %(membre)s dépasse le quota de 10 jours de mission pour ce mois %(mission)s. %(nombre)s les missions sont %(mem)s:",
-                        membre=membre.employee_id.name, mission=month_missions, nombre=total_days_for_membre, mem=membre_missions
+                        membre=membre.employee_id.name, mission=membre.mission_id.date_retour, nombre=total_days_for_membre, mem=membre_missions
                     ))
                 # Vérification : si le total existant + la nouvelle mission > 10
                 if total_days_for_membre + new_mission_days > 10:
