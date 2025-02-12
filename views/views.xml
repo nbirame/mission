@@ -83,7 +83,7 @@
         <field name="arch" type="xml">
             <form string="Détail de la mission">
                 <header>
-                   <button name="print_report_mission" string="IMPRIMER L'ETAT LIQUIDATIF"  type="object" class="oe_highlight" groups="mission.group_mission_daf,mission.group_mission_assistant_daf"/>
+                   <button name="print_report_mission" string="IMPRIMER L'ETAT LIQUIDATIF"  type="object" class="oe_highlight" groups="mission.group_mission_daf,mission.group_mission_assistant_daf,mission.group_mission_assistant_daf"/>
                     <button  name="action_terminer" string="Terminer" states="en_cours" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
                     <button name="action_en_cours" string="Cours" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
                     <button name="action_programmer" string="Remettre en Brouillon" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
@@ -138,7 +138,7 @@
                                         <field name="total"/>
                                         <field name="ordre_mission" filename="ordre_mission_name" invisible="0"/>
                                         <field name="ordre_mission_name" invisible="1"/>
-                                        <button name="report_print" string="Imprimer odre de mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux,mission.group_mission_daf,mission.group_mission_visiteur"/>
+                                        <button name="report_print" string="Imprimer odre de mission"  type="object" class="oe_highlight" groups="mission.group_mission_genereaux,mission.group_mission_daf,mission.group_mission_visiteur,mission.group_mission_assistant_daf"/>
                                     </tree>
                          </field>
                       </page>
