@@ -59,7 +59,7 @@
         id="menu_equipe_miss"
         name="Frais de Mission"
         parent="menu_mission"
-        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_assistant_daf,mission.group_mission_daf"
         action="mission_equipe_action"
         sequence="2"/>
 

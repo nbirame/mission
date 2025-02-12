@@ -195,7 +195,7 @@
         name="Mission"
         parent="menu_mission"
         action="mission_delegation_action"
-        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_employee,mission.group_mission_daf"
+        groups="mission.group_mission_admin,mission.group_mission_genereaux,mission.group_mission_visiteur,mission.group_mission_employee,mission.group_mission_daf,mission.group_mission_assistant_daf"
         sequence="1"/>
 
 </odoo>
