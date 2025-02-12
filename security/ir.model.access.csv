@@ -36,6 +36,7 @@ access_mission_indemnite_visiteur,mission.indemnite,model_mission_indemnite,miss
 access_mission_vehicle_compta,mission.vehicle,model_mission_vehicle,mission.group_mission_comptability,1,1,1,1
 access_mission_vehicle_admin,mission.vehicle,model_mission_vehicle,mission.group_mission_admin,1,1,1,1
 access_mission_vehicle_visiteur,mission.vehicle,model_mission_vehicle,mission.group_mission_visiteur,1,0,0,0
+access_mission_vehicle_daf,mission.vehicle,model_mission_vehicle,mission.group_mission_daf,1,0,0,0
 access_mission_vehicle_mg,mission.vehicle,model_mission_vehicle,mission.group_mission_genereaux,1,1,1,1
 access_mission_suivi_essence_visiteur,mission.suivi_essence,model_mission_suivi_essence,mission.group_mission_visiteur,1,0,0,0
 access_mission_suivi_essence_admin,mission.suivi_essence,model_mission_suivi_essence,mission.group_mission_admin,1,1,1,1
