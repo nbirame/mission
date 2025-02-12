@@ -57,7 +57,7 @@
             <field name="auto_delete" eval="True"/>
             <field name="body_html">
                 <![CDATA[
-                <div>Bonjour DAF<br>
+                <div>Bonjour AC<br>
                     Voici l'etat liquidatif de la mission du
                      <span t-out="object.date_depart or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}' ></span> au
                      <span t-out="object.date_retour or ''" t-options='{"widget": "date","format": "dd/MM/yyyy"}'></span><br/>
