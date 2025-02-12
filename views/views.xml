@@ -84,12 +84,12 @@
             <form string="Détail de la mission">
                 <header>
                    <button name="print_report_mission" string="IMPRIMER L'ETAT LIQUIDATIF"  type="object" class="oe_highlight" groups="mission.group_mission_daf,mission.group_mission_assistant_daf"/>
-                    <button  name="action_terminer" string="Terminer" states="en_cours" type="object" class="oe_highlight" groups="mission.group_mission_admin"/>
-                    <button name="action_en_cours" string="Cours" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin"/>
+                    <button  name="action_terminer" string="Terminer" states="en_cours" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
+                    <button name="action_en_cours" string="Cours" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
                     <button name="action_programmer" string="Remettre en Brouillon" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_genereaux"/>
                     <button name="action_confirmer" string="Confirmer" states="programmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
                     <button name="action_annuler" string="Annuler" states="confirmer" type="object" class="oe_highlight" groups="mission.group_mission_admin,mission.group_mission_genereaux"/>
-                    <field name="state" nolabel="1" widget="statusbar"  groups="mission.group_mission_genereaux"/>
+                    <field name="state" nolabel="1" widget="statusbar"  groups="mission.group_mission_genereaux,mission.group_mission_admin"/>
                 </header>
                 <sheet>
                       <group name="group_top" string="Ordre de mission"  col="4" >
