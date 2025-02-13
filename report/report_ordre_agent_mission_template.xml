@@ -31,7 +31,7 @@
                         </p><br/>
                         <p>
                             <span class="ordre_text">Motifs de la mission :</span>
-                            <span class="font-weight-bold">Cette mission à objective :</span>
+                            <span class="font-weight-bold">L'objectif visé dans le cadre de cette mission est de:</span>
                             <span t-esc="o.motif" class="font-weight-bold"/>
                         </p><br/>
                         <p>
