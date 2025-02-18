@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
+    <data>
+        <record id="report_mission_delegation_agent" model="ir.actions.report">
+            <field name="name">Ordre Mission</field>
+            <field name="model">mission.delegation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mission.report_ordre_agent_mission</field>
+            <field name="report_file">mission.report_ordre_agent_mission</field>
+            <field name="print_report_name">'Ordre_DE_Mission_ - %s' % object.employee_id.name</field>
+        </record>
+    </data>
+    <!--<report
         string="Ordre de Mission"
         id="report_mission_delegation_agent"
         model="mission.delegation"
@@ -9,5 +19,5 @@
         name="mission.report_ordre_agent_mission"
         file="mission.report_ordre_agent_mission"
         print_report_name = "('Ordre_DE_Mission_'+object.employee_id.name)"
-    />
+    />-->
 </odoo>

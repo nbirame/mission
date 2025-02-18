@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
+    <!--<report
         string="Etat"
         id="report_etat_mission_delegation"
         model="mission.delegation"
@@ -8,5 +8,14 @@
         menu="False"
         name="mission.report_etat_mission"
         file="mission.report_etat_mission"
-    />
+    />-->
+    <data>
+        <record id="report_etat_mission_delegation" model="ir.actions.report">
+            <field name="name">Rapport Etat liquidatif Mission</field>
+            <field name="model">mission.delegation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mission.report_etat_mission</field>
+            <field name="report_file">mission.report_etat_mission</field>
+        </record>
+    </data>
 </odoo>
