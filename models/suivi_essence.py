@@ -19,7 +19,7 @@ class Suivi(models.Model):
     number_liter = fields.Float(string="Nombre de Litre", required=True)
     liter_price = fields.Float(string="Prix au Litre", required=True)
     total_price = fields.Float(string="Prix Total", compute="_compute_total_price", store=True)
-    mileage = fields.Float(string="Kilométrage")
+    mileage = fields.Float(string="Kilométrage", required=True)
     date_of_departure = fields.Datetime(string="Date et heure", required=True)
     time_of_departure = fields.Char(string="Heure de depart", compute="_compute_time_of_departure", store=True)
     date_of_departure_format = fields.Char(string="Date", compute="_compute_date_of_departure_format", store=True)
@@ -63,6 +63,14 @@ class Suivi(models.Model):
             data = {'value': res.mileage, 'date': res.date_of_departure, 'vehicle_id': res.vehicle_id.id,
                     'conducteur_id': res.conducteur_id.id}
             self.env['fleet.vehicle.odometer'].create(data)
+        if res.carte_id:
+            consomation_data = {'nb_littre': res.number_liter, 'prix': res.liter_price,
+                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id}
+            self.env['carburant.consommation'].create(consomation_data)
+        else:
+            consomation_data = {'nb_littre': res.number_liter, 'prix': res.liter_price,
+                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id}
+            self.env['carburant.consommation'].create(consomation_data)
         return res
 
     # @api.model

@@ -43,7 +43,7 @@
                       </group>
                       <group name="group_top" col="4" string="Détails du ravitaillement en carburant">
                              <field name="source"/>
-                             <field name="carte_id"/>
+                             <field name="carte_id" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
                              <field name="number_liter"/>
                              <field name="liter_price"/>
                              <field name="total_price"/>
