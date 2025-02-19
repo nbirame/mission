@@ -59,8 +59,8 @@ class Delegation(models.Model):
         ('annuler', 'Annulée'),
     ],
         default='programmer', store=True, string="Status")
-    rapport_mission = fields.Binary(string="Rapport de la Mission")
-    rapport_mission_name = fields.Char(string="Rapport de la Mission", store=True,)
+    rapport_file = fields.Binary(string="Rapport de la Mission", store=True)
+    rapport_file_name = fields.Char(string="Rapport de la Mission", store=True)
     # ordre_mission = fields.Binary(string="Ordre de la Mission")
     # ordre_mission_name = fields.Char(string="Ordre de la Mission")
 
