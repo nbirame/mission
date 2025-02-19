@@ -63,13 +63,17 @@ class Suivi(models.Model):
             data = {'value': res.mileage, 'date': res.date_of_departure, 'vehicle_id': res.vehicle_id.id,
                     'conducteur_id': res.conducteur_id.id}
             self.env['fleet.vehicle.odometer'].create(data)
+        else:
+            data = {'date': res.date_of_departure, 'vehicle_id': res.vehicle_id.id,
+                    'conducteur_id': res.conducteur_id.id}
+            self.env['fleet.vehicle.odometer'].create(data)
         if res.carte_id:
             consomation_data = {'nb_littre': res.number_liter, 'prix': res.liter_price,
-                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id}
+                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id, 'total': res.total_price}
             self.env['carburant.consommation'].create(consomation_data)
         else:
             consomation_data = {'nb_littre': res.number_liter, 'prix': res.liter_price,
-                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id}
+                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id, 'total': res.total_price}
             self.env['carburant.consommation'].create(consomation_data)
         return res
 
