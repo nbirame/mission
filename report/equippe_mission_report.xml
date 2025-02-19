@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
+    <data>
+        <record id="report_mission_delegation_equipe" model="ir.actions.report">
+            <field name="name">Equipe de Mission</field>
+            <field name="model">mission.delegation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mission.report_equipe_mission</field>
+            <field name="report_file">mission.report_equipe_mission</field>
+            <field name="print_report_name">'Equipe_DE_Mission_N°° - %s' % object.name</field>
+        </record>
+    </data>
+    <!--<report
         string="Mission"
         id="report_mission_delegation_equipe"
         model="mission.delegation"
@@ -9,5 +19,5 @@
         name="mission.report_equipe_mission"
         file="mission.report_equipe_mission"
         print_report_name = "('Equipe_DE_Mission_N°'+object.name)"
-    />
+    />-->
 </odoo>
