@@ -159,16 +159,16 @@
                       </group>
                       <group name="group_top" col="4">
                            <field name="cout_ticket" attrs="{'invisible': [('source', '=', 'Cart')], 'readonly':[('state', '!=', 'programmer')]}"/>
-                            <field name="cout_carburant"/>
-                            <field name="dotation_carburant"/>
+                            <field name="cout_carburant" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
+                            <field name="dotation_carburant" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
                       </group>
                         <field name="consommation_id"  attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}">
                            <tree string="Consommation" editable="bottom">
                                <field name="vehicule_id"/>
-                                 <field name="nb_littre"/>
-                               <field name="prix"/>
-                               <field name="total"/>
-                               <field name="carte_id"/>
+                                 <field name="nb_littre" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
+                               <field name="prix" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
+                               <field name="total" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
+                               <field name="carte_id" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
                             </tree>
                          </field>
                       </page>
