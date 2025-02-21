@@ -73,7 +73,7 @@ class Suivi(models.Model):
             self.env['carburant.consommation'].create(consomation_data)
         else:
             consomation_data = {'nb_littre': res.number_liter, 'prix': res.liter_price,
-                                'vehicule_id': res.vehicle_id.id, 'carte_id': res.carte_id.id, 'total': res.total_price}
+                                'vehicule_id': res.vehicle_id.id, 'ticket': "Ticket", 'total': res.total_price}
             self.env['carburant.consommation'].create(consomation_data)
         return res
 

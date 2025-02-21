@@ -284,7 +284,7 @@ class Delegation(models.Model):
                             'total': record.cout_ticket,
                             'vehicule_id': veh.voiture_id.id,
                             'delegation_id': record.id,
-                            'carte_id': record.cartecarburant_id.id
+                            'ticket': "Ticket"
                         }
                     lines.append((0, 0, consommation_record))
             record.consommation_id = lines
