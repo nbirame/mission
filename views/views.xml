@@ -165,10 +165,10 @@
                         <field name="consommation_id"  attrs="{'invisible': ['|', '|', ('moyen_transport', '=', 'Avion'),('moyen_transport', '=', 'Bateau'), ('moyen_transport', '=', 'Train')], 'readonly':[('state', '!=', 'programmer')]}">
                            <tree string="Consommation" editable="bottom">
                                <field name="vehicule_id"/>
-                                 <field name="nb_littre" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
-                               <field name="prix" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
-                               <field name="total" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
-                               <field name="carte_id" attrs="{'invisible': [('source', '=', 'Ticket')]}"/>
+                                 <field name="nb_littre"/>
+                               <field name="prix"/>
+                               <field name="total"/>
+                               <field name="carte_id"/>
                             </tree>
                          </field>
                       </page>
